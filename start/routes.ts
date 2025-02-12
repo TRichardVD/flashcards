@@ -6,10 +6,15 @@
 | The routes file is used for defining the HTTP routes.
 |
 */
-
+import { HttpContext } from '@adonisjs/core/http'
 import router from '@adonisjs/core/services/router'
+import UsersController from '#controllers/users_controller'
 
-router.on('/').render('pages/home')
+router
+  .get('/users', async (ctx: HttpContext) => {
+    return new UsersController().index(ctx)
+  })
+  .as('users.index')
 
 // TODO : Page de connetion et de création de compte
 
