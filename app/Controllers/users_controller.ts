@@ -11,8 +11,8 @@ export default class UsersController {
     }
   }
 
-  async show({ params }: HttpContext) {
-    return await User.find(params.id)
+  async show({ params, response }: HttpContext) {
+    return response.send(await User.find(params.id))
   }
 
   //async create({ view }: HttpContext) {}
