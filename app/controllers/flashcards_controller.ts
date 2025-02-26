@@ -9,23 +9,34 @@ export default class FlashcardsController {
   public async show({ response, params }: HttpContext) {
     return response.send(await Flashcard.find(params.id))
   }
-  //async create({ view }: HttpContext) {}
 
-  //async store({ request }: HttpContext) {}
+  public async store({ response, request }: HttpContext) {
+    try {
+      const { recto, verso, deckId, userId } = request.body()
 
-  //async create({ view }: HttpContext) {}
+      const fc = new Flashcard()
+      fc.recto = recto
+      fc.verso = verso
+      fc.deckId = deckId
+      fc.user_id = userId
 
-  //async store({ request }: HttpContext) {}
+      await fc.save()
 
-  //async edit({ params }: HttpContext) {}
+      return response.json({ message: 'Flashcard correctement créée' })
+    } catch (err) {
+      return response.send("Une erreur s'est produite durant la création de l'objet")
+    }
+  }
 
-  //async update({ params, request }: HttpContext) {}
+  //public async store({ request }: HttpContext) {}
 
-  //async destroy({ params, response }: HttpContext) {}
+  //public async create({ view }: HttpContext) {}
 
-  //async edit({ params }: HttpContext) {}
+  //public async store({ request }: HttpContext) {}
 
-  //async update({ params, request }: HttpContext) {}
+  //public async update({ params, request }: HttpContext) {}
 
-  //async destroy({ params, response }: HttpContext) {}
+  //public async destroy({ params, response }: HttpContext) {}
+
+  //public async edit({ params }: HttpContext) {}
 }

@@ -20,31 +20,49 @@ router
   })
   .as('users.index')
 
-router.get('/users/:id', async (ctx: HttpContext) => {
-  return userControllers.show(ctx)
-})
+router
+  .get('/users/:id', async (ctx: HttpContext) => {
+    return userControllers.show(ctx)
+  })
+  .as('users.show')
 
 // Gestion Decks
 const decksController = new DecksController()
 
-router.get('/decks', async (ctx: HttpContext) => {
-  return decksController.index(ctx)
-})
+router
+  .get('/decks', async (ctx: HttpContext) => {
+    return decksController.index(ctx)
+  })
+  .as('decks.index')
 
-router.get('/decks/:id', async (ctx: HttpContext) => {
-  return decksController.show(ctx)
-})
+router
+  .get('/decks/:id', async (ctx: HttpContext) => {
+    return decksController.show(ctx)
+  })
+  .as('decks.show')
 
 // Gestion Flashcards
 const flashcardsController = new FlashcardsController()
 
-router.get('/flashcards', async (ctx: HttpContext) => {
-  return flashcardsController.index(ctx)
-})
+router
+  .get('/flashcards', async (ctx: HttpContext) => {
+    return await flashcardsController.index(ctx)
+  })
+  .as('flashcards.index')
 
-router.get('/flashcards/:id', async (ctx: HttpContext) => {
-  return flashcardsController.show(ctx)
-})
+router
+  .get('/flashcards/:id', async (ctx: HttpContext) => {
+    return await flashcardsController.show(ctx)
+  })
+  .as('flashcards.show')
+
+// router.get('/flashcards/add', async (ctx : HttpContext) => {})
+
+router
+  .post('/flashcards/add', async (ctx: HttpContext) => {
+    return await flashcardsController.store(ctx)
+  })
+  .as('flashcards.store')
 
 // TODO : Page de connetion et de création de compte
 

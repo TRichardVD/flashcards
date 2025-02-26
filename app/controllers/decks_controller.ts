@@ -9,13 +9,17 @@ export default class DecksController {
   public async show({ response, params }: HttpContext) {
     return response.send(await Deck.find(params.id))
   }
-  //async create({ view }: HttpContext) {}
+  //public async create({ view }: HttpContext) {}
 
-  //async store({ request }: HttpContext) {}
+  //public async store({ request }: HttpContext) {}
 
-  //async edit({ params }: HttpContext) {}
+  //public async create({ view }: HttpContext) {}
 
-  //async update({ params, request }: HttpContext) {}
+  //public async store({ request }: HttpContext) {}
 
-  //async destroy({ params, response }: HttpContext) {}
+  //public async update({ params, request }: HttpContext) {}
+
+  //public async destroy({ params, response }: HttpContext) {}
+
+  //public async edit({ params }: HttpContext) {}
 }

@@ -15,21 +15,17 @@ export default class UsersController {
     return response.send(await User.find(params.id))
   }
 
-  //async create({ view }: HttpContext) {}
+  //public async create({ view }: HttpContext) {}
 
-  //async store({ request }: HttpContext) {}
-  //async create({ view }: HttpContext) {}
+  //public async store({ request }: HttpContext) {}
 
-  //async store({ request }: HttpContext) {}
+  //public async create({ view }: HttpContext) {}
 
-  //async edit({ params }: HttpContext) {}
+  //public async store({ request }: HttpContext) {}
 
-  //async update({ params, request }: HttpContext) {}
+  //public async update({ params, request }: HttpContext) {}
 
-  //async destroy({ params, response }: HttpContext) {}
-  //async edit({ params }: HttpContext) {}
+  //public async destroy({ params, response }: HttpContext) {}
 
-  //async update({ params, request }: HttpContext) {}
-
-  //async destroy({ params, response }: HttpContext) {}
+  //public async edit({ params }: HttpContext) {}
 }
