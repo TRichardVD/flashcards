@@ -18,7 +18,15 @@ export default class UsersController {
   //async create({ view }: HttpContext) {}
 
   //async store({ request }: HttpContext) {}
+  //async create({ view }: HttpContext) {}
 
+  //async store({ request }: HttpContext) {}
+
+  //async edit({ params }: HttpContext) {}
+
+  //async update({ params, request }: HttpContext) {}
+
+  //async destroy({ params, response }: HttpContext) {}
   //async edit({ params }: HttpContext) {}
 
   //async update({ params, request }: HttpContext) {}
