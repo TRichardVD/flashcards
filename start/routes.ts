@@ -56,7 +56,9 @@ router
   })
   .as('flashcards.show')
 
-// router.get('/flashcards/add', async (ctx : HttpContext) => {})
+// router.get('/flashcards/add', async (ctx: HttpContext) => {
+//   // TODO : Retourner le formulaire
+// })
 
 router
   .post('/flashcards/add', async (ctx: HttpContext) => {
@@ -64,7 +66,9 @@ router
   })
   .as('flashcards.store')
 
-// TODO : Page de connetion et de création de compte
+// TODO : Route de login
+
+// TODO : Route de register
 
 // TODO : Page de gestion des decks et des cartes
 
