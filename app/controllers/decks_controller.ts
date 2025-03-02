@@ -9,17 +9,22 @@ export default class DecksController {
   public async show({ response, params }: HttpContext) {
     return response.send(await Deck.find(params.id))
   }
-  //public async create({ view }: HttpContext) {}
 
-  //public async store({ request }: HttpContext) {}
+  // public async create({ view }: HttpContext) {}
 
-  //public async create({ view }: HttpContext) {}
+  public async store({ request, response }: HttpContext) {
+    try {
+      const { name } = request.body()
+      const deck = await Deck.create({ name: name, user_id: 1 })
+      return response.json({ message: 'Nouveau deck créé', data: deck })
+    } catch (err) {
+      return response.json({ error: "Une erreur s'est produite durant la création du deck" })
+    }
+  }
 
-  //public async store({ request }: HttpContext) {}
+  // public async update({ params, request }: HttpContext) {}
 
-  //public async update({ params, request }: HttpContext) {}
+  // public async destroy({ params, response }: HttpContext) {}
 
-  //public async destroy({ params, response }: HttpContext) {}
-
-  //public async edit({ params }: HttpContext) {}
+  // public async edit({ params }: HttpContext) {}
 }

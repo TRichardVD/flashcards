@@ -28,8 +28,6 @@ export default class FlashcardsController {
     }
   }
 
-  //public async store({ request }: HttpContext) {}
-
   //public async create({ view }: HttpContext) {}
 
   //public async store({ request }: HttpContext) {}
