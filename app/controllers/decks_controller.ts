@@ -3,11 +3,19 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 export default class DecksController {
   public async index({ response }: HttpContext) {
-    const decks = await Deck.query().orderBy('id', 'asc')
-    return response.send(decks)
+    try {
+      const decks = await Deck.query().orderBy('id', 'asc')
+      return response.send(decks)
+    } catch (err) {
+      return response.send('Erreur')
+    }
   }
   public async show({ response, params }: HttpContext) {
-    return response.send(await Deck.find(params.id))
+    try {
+      return response.send(await Deck.find(params.id))
+    } catch (err) {
+      return response.send('Erreur')
+    }
   }
 
   // public async create({ view }: HttpContext) {}

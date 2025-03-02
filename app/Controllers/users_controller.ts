@@ -12,7 +12,11 @@ export default class UsersController {
   }
 
   async show({ params, response }: HttpContext) {
-    return response.send(await User.find(params.id))
+    try {
+      return response.send(await User.find(params.id))
+    } catch (err) {
+      return response.send('Erreur')
+    }
   }
 
   //public async create({ view }: HttpContext) {}

@@ -3,11 +3,19 @@ import Flashcard from '#models/flashcard'
 
 export default class FlashcardsController {
   public async index({ response }: HttpContext) {
-    const flashcards = await Flashcard.query().orderBy('id', 'asc')
-    return response.send(flashcards)
+    try {
+      const flashcards = await Flashcard.query().orderBy('id', 'asc')
+      return response.send(flashcards)
+    } catch (err) {
+      return response.send('Erreur')
+    }
   }
   public async show({ response, params }: HttpContext) {
-    return response.send(await Flashcard.find(params.id))
+    try {
+      return response.send(await Flashcard.find(params.id))
+    } catch (err) {
+      return response.send('Erreur')
+    }
   }
 
   public async store({ response, request }: HttpContext) {
