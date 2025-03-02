@@ -44,9 +44,9 @@ router.post('/flashcards/add', [FlashcardsController, 'store']).as('flashcards.s
 
 // TODO : Route de register
 
-// router.post('/register', async (ctx: HttpContext) => {}).as('users.create')
+// router.post('/register', []).as('users.create')
 
-// router.post('/users/add', async (ctx: HttpContext) => {}).as('users.store')
+router.post('/users/add', [UsersController, 'store']).as('users.store')
 
 // TODO : Page de gestion des decks et des cartes
 
