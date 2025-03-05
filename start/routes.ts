@@ -66,3 +66,7 @@ router.post('/users/add', [UsersController, 'store']).as('users.store')
 // TODO : Page de jeu (avec les decks et les cartes)
 
 // TODO : Page 404 : Page non trouvée
+router.get('*', async (ctx: HttpContext) => {
+  ctx.session.flash({ error: 'Page non trouvée' })
+  return ctx.response.redirect('/')
+})
