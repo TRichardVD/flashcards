@@ -41,3 +41,12 @@ Le projet repose sur les technologies suivantes :
 ---
 
 Avec **WOP : World Of Flashcards**, transformez l'apprentissage en une expérience interactive et engageante !
+
+---
+
+## To do :
+
+- [ ] Authentification
+- [ ] Validateurs
+- [ ] gestion des decks
+- [ ]
