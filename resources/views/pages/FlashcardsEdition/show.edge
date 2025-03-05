@@ -1,0 +1,48 @@
+@layout.main({ title: deck.name })
+  @slot('main')
+    <h2>
+      {{ deck.name }}
+    </h2>
+    <table>
+      <thead>
+        <th>
+          ID
+        </th>
+        <th>
+          Recto
+        </th>
+        <th>
+          Verso
+        </th>
+        <th>
+        </th>
+      </thead>
+      <tbody>
+        @each(card in flashcards)
+          <tr>
+            <td>
+              {{ card.id }}
+            </td>
+            <td>
+              {{ card.recto }}
+            </td>
+            <td>
+              {{ card.verso }}
+            </td>
+            <td>
+              <a href="/flashcards/{{ card.id }}/edit">edit</a>
+              <a href="/flashcards/{{ card.id }}/delete">delete</a>
+            </td>
+          </tr>
+        @endeach
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4">
+            <a style="text-align: center" href="/flashcards/{{ deck.id }}/add">Create a new card</a>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  @endslot
+@end

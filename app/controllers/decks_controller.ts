@@ -1,4 +1,5 @@
 import Deck from '#models/deck'
+import Flashcard from '#models/flashcard'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class DecksController {
@@ -10,9 +11,11 @@ export default class DecksController {
       return response.send('Erreur')
     }
   }
-  public async show({ response, params }: HttpContext) {
+  public async show({ response, params, view }: HttpContext) {
     try {
-      return response.send(await Deck.find(params.id))
+      const deck = await Deck.find(params.id)
+      const flashcards = await Flashcard.query().where('deck_id', params.id).orderBy('id', 'asc')
+      return view.render('pages/FlashcardsEdition/show', { flashcards: flashcards, deck: deck })
     } catch (err) {
       return response.send('Erreur')
     }
@@ -30,9 +33,9 @@ export default class DecksController {
     }
   }
 
+  // public async edit({ params }: HttpContext) {}
+
   // public async update({ params, request }: HttpContext) {}
 
   // public async destroy({ params, response }: HttpContext) {}
-
-  // public async edit({ params }: HttpContext) {}
 }

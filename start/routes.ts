@@ -10,6 +10,13 @@ import router from '@adonisjs/core/services/router'
 import UsersController from '#controllers/users_controller'
 import FlashcardsController from '#controllers/flashcards_controller'
 import DecksController from '#controllers/decks_controller'
+import HttpContext from '@ioc:Adonis/Core/HttpContext'
+import Deck from '#models/deck'
+
+// Page d'accueil
+router.get('/', async (ctx: HttpContext) => {
+  return ctx.view.render('pages/home')
+})
 
 // Gestion Utilisateurs
 router.get('/users', [UsersController, 'index']).as('users.index')
@@ -34,11 +41,17 @@ router.get('/flashcards', [FlashcardsController, 'index']).as('flashcards.index'
 
 router.get('/flashcards/:id', [FlashcardsController, 'show']).as('flashcards.show')
 
-// router.get('/flashcards/add', async (ctx: HttpContext) => {
-//   // TODO : Retourner le formulaire
-// })
+router.get('/flashcards/:id/add', [FlashcardsController, 'create']).as('flashcards.create')
 
-router.post('/flashcards/add', [FlashcardsController, 'store']).as('flashcards.store')
+router.post('/flashcards/:id/add', [FlashcardsController, 'store']).as('flashcards.store')
+
+router.get('/flashcards/:id/edit', [FlashcardsController, 'edit']).as('flashcards.edit')
+
+router.post('/flashcards/:id/edit', [FlashcardsController, 'update']).as('flashcards.update')
+
+router.get('/flashcards/:id/delete', [FlashcardsController, 'delete']).as('flashcards.delete')
+
+router.post('/flashcards/:id/delete', [FlashcardsController, 'destroy']).as('flashcards.destroy')
 
 // TODO : Route de login
 

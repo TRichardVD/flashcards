@@ -1,6 +1,8 @@
-@layout({ title: 'Accueil' })
-  @section('body')
+@layout.main({ title: 'Accueil' })
+  @slot('main')
     <h1>
-      It Works!
+      Welcome !
     </h1>
-  @end
+    <img src="/resources/assets/illustration.svg" alt="Illustration" />
+  @endslot
+@end

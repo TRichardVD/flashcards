@@ -1,0 +1,14 @@
+@layout.main({ title : "Supprimer la flashcard {{flashcard.id}}" })
+  @slot('main')
+    <h2>
+      Supprimer la carte {{ flashcard.recto }} - {{ flashcard.verso }}
+    </h2>
+    <form action="/flashcards/{{ flashcard.id }}/delete" method="POST">
+      <input type="hidden" name="_method" value="DELETE" />
+      <input type="hidden" name="deck_id" value="{{ flashcard.deck_id }}" />
+      <button type="submit" onclick="return confirm('Voulez-vous vraiment supprimer cette carte ?')">
+        Supprimer la carte
+      </button>
+    </form>
+  @endslot
+@end

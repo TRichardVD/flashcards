@@ -1,10 +1,338 @@
+/* app.css */
+/* Variables pour les couleurs */
+:root {
+  --primary: #4caf50; /* Vert */
+  --secondary: #ff9800; /* Orange */
+  --accent: #ffeb3b; /* Jaune */
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --error: #f44336;
+  --success: #4caf50;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+}
+
+/* Reset et styles de base */
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-html,
 body {
-  height: 100%;
+  background-color: var(--light);
+  color: var(--dark);
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: white;
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+.logo {
+  height: 60px;
+}
+
+nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+nav a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: var(--secondary);
+}
+
+/* Main content */
+main {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h2 {
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 2rem;
+}
+
+/* Tables */
+table {
   width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 8px var(--shadow);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+thead {
+  background-color: var(--primary);
+  color: white;
+}
+
+th,
+td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+tbody tr:hover {
+  background-color: rgba(76, 175, 80, 0.05);
+}
+
+tfoot {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+tfoot a {
+  display: block;
+  text-align: center;
+  padding: 0.75rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Flash messages */
+.success,
+.error {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+}
+
+.success {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: var(--success);
+  border-left: 4px solid var(--success);
+}
+
+.error {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: var(--error);
+  border-left: 4px solid var(--error);
+}
+
+/* Forms */
+input[type='text'],
+input[type='password'],
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+input[type='text']:focus,
+input[type='password']:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+/* Buttons */
+a.button,
+button,
+input[type='submit'] {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
+}
+
+a.button:hover,
+button:hover,
+input[type='submit']:hover {
+  background-color: #3d8b40;
+  transform: translateY(-2px);
+}
+
+button.secondary {
+  background-color: white;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+button.secondary:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+button.danger {
+  background-color: var(--error);
+}
+
+button.danger:hover {
+  background-color: #d32f2f;
+}
+
+/* Deck list */
+.deck-list {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.deck-list th {
+  text-align: left;
+  padding: 1rem;
+  background-color: var(--primary);
+  color: white;
+}
+
+.deck-list td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.deck-list tr:hover {
+  background-color: rgba(76, 175, 80, 0.05);
+}
+
+/* Card count badge */
+.card-count {
+  background-color: var(--secondary);
+  color: white;
+  border-radius: 50px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+/* Modal */
+.modal {
+  background-color: #fff9c4;
+  border: 1px solid var(--accent);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.modal-title {
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Form validation error messages */
+.validation-error {
+  color: var(--error);
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Form layout */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+/* Add card button */
+.add-button {
+  margin-top: 1.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  th,
+  td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .modal {
+    width: 90%;
+  }
+}
+
+/* Footer */
+footer {
+  margin-top: 3rem;
+  text-align: center;
+  padding: 1.5rem;
+  background-color: var(--primary);
+  color: white;
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* Specific page layouts */
+/* Decks page */
+.decks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+/* Flashcards view */
+.flashcard-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Login/Register form */
+.auth-form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 8px var(--shadow);
+}
+
+.auth-form h2 {
+  margin-bottom: 2rem;
 }

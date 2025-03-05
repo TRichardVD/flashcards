@@ -1,0 +1,12 @@
+<label for="{{ name }}">{{ label || "champ" }}</label>
+@if(type === 'textarea')
+  <textarea name="{{ name }}" placeholder="{{ placeholder || '' }}">{{ value || '' }}</textarea>
+@else
+  <input
+    type="{{ type || 'text' }}"
+    name="{{ name }}"
+    value="{{ value || '' }}"
+    placeholder="{{ placeholder || '' }}"
+  />
+@endif
+
