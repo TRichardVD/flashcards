@@ -6,9 +6,17 @@
     <form action="/flashcards/{{ flashcard.id }}/delete" method="POST">
       <input type="hidden" name="_method" value="DELETE" />
       <input type="hidden" name="deck_id" value="{{ flashcard.deck_id }}" />
-      <button type="submit" onclick="return confirm('Voulez-vous vraiment supprimer cette carte ?')">
+      <button
+        class="button"
+        type="submit"
+        onclick="return confirm('Voulez-vous vraiment supprimer cette carte ?')"
+      >
         Supprimer la carte
       </button>
+      {{--  Bouton pour abandonner  --}}
+      <a href="javascript:history.back()" class="button">
+        Abandonner
+      </a>
     </form>
   @endslot
 @end

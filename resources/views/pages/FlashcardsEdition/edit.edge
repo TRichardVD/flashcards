@@ -8,9 +8,13 @@
       @!component('components/input', { type: 'textarea', name: 'recto', placeholder: 'Entrez le recto de la carte', label: 'Recto', value: flashcard.recto })
       @!component('components/input', { type: 'textarea', name: 'verso', placeholder: 'Entrez le verso de la carte', label: 'Verso', value: flashcard.verso })
       <input type="hidden" name="deck_id" value="{{ deck.id }}" />
-      <button type="submit">
+      <button class="button" type="submit">
         Modifier la carte
       </button>
+      {{--  Bouton pour abandonner  --}}
+      <a href="javascript:history.back()" class="button">
+        Abandonner
+      </a>
     </form>
   @endslot
   

@@ -7,9 +7,13 @@
       @!component('components/input', { type: 'text', name: 'recto', placeholder: 'Entrez le recto de la carte', label: 'Recto' })
       @!component('components/input', { type: 'text', name: 'verso', placeholder: 'Entrez le verso de la carte', label: 'Verso' })
       <input type="hidden" name="deck_id" value="{{ deck.id }}" />
-      <button type="submit">
+      <button class="button" type="submit">
         Ajouter à {{ deck.name }}
       </button>
+      {{--  Bouton pour abandonner  --}}
+      <a href="javascript:history.back()" class="button">
+        Abandonner
+      </a>
     </form>
   @endslot
 @end
