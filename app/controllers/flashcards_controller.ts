@@ -67,8 +67,7 @@ export default class FlashcardsController {
       session.flash('success', 'Objet modifié avec succès')
       return response.redirect().toRoute('decks.show', { id: card.deckId })
     } catch (err) {
-      session.flash('error', "Une erreur s'est produite durant la modification de l'objet")
-      return response.redirect().toRoute('decks.show', { id: card.deckId })
+      return session.flash('error', "Une erreur s'est produite durant la modification de l'objet")
     }
   }
 
