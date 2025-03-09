@@ -1,11 +1,11 @@
+@eval(await auth.check())
 <header>
-
   <a href="/">
     <img class="logo" src="/resources/assets/logo.svg" alt="Logo" />
   </a>
   <nav>
-    @if(user)
-      <a href="/user/{{ user.id }}">{{ user.username }}</a>
+    @if(auth.isAuthenticated)
+      <a href="/user/{{ auth.user.id }}">{{ auth.user.fullName }}</a>
       <a href="/logout">Déconnexion</a>
     @else
       <a href="/login">Connexion</a>

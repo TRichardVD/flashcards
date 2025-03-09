@@ -10,7 +10,7 @@
     class="{{ flashMessages.has(`errors.${name}`) ? 'validation-error' : '' }}"
     type="{{ type || 'text' }}"
     name="{{ name }}"
-    value="{{ flashMessages.get(name) || value || '' }}"
+    value="{{ type === 'password' ? '' : (flashMessages.get(name) || value || '') }}"
     placeholder="{{ placeholder || '' }}"
   />
 @endif

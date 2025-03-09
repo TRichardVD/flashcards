@@ -12,58 +12,73 @@ import FlashcardsController from '#controllers/flashcards_controller'
 import DecksController from '#controllers/decks_controller'
 import HttpContext from '@ioc:Adonis/Core/HttpContext'
 import Deck from '#models/deck'
+import { middleware } from './kernel.js'
+import { request } from 'http'
+import { loginUserValidator, registerUserValidator } from '#validators/user'
+import SecurityController from '#controllers/security_controller'
 
 // Page d'accueil
-router.get('/', async (ctx: HttpContext) => {
-  return ctx.view.render('pages/home')
+router
+  .get('/', async (ctx: HttpContext) => {
+    return ctx.view.render('pages/home')
+  })
+  .as('home')
+
+router.get('/login', [SecurityController, 'login']).as('login')
+
+router.post('/login', [SecurityController, 'createSession']).as('login.post')
+
+router.get('/register', async (ctx: HttpContext) => {
+  return ctx.view.render('pages/login/register')
 })
 
-// Gestion Utilisateurs
-router.get('/users', [UsersController, 'index']).as('users.index')
+router.post('/register', [UsersController, 'store']).as('users.store')
 
-router.get('/users/:id', [UsersController, 'show']).as('users.show')
+router
+  .group(() => {
+    // Page de deconnexion
+    router.get('/logout', [SecurityController, 'logout']).as('logout')
 
-// Gestion Decks
-router.get('/decks', [DecksController, 'index']).as('decks.index')
+    // Gestion Utilisateurs
+    router.get('/users', [UsersController, 'index']).as('users.index')
 
-router.get('/decks/:id', [DecksController, 'show']).as('decks.show')
+    router.get('/users/:id', [UsersController, 'show']).as('users.show')
 
-// Route pour créer un deck
-// router.get('/decks/add', async (ctx : HttpContext) => {
+    // Gestion Decks
+    router.get('/decks', [DecksController, 'index']).as('decks.index')
 
-// })
+    router.get('/decks/:id', [DecksController, 'show']).as('decks.show')
 
-router.post('/decks/add', [DecksController, 'store'])
+    // Route pour créer un deck
+    // router.get('/decks/add', async (ctx : HttpContext) => {
 
-// Gestion Flashcards
+    // })
 
-router.get('/flashcards', [FlashcardsController, 'index']).as('flashcards.index')
+    router.post('/decks/add', [DecksController, 'store'])
 
-router.get('/flashcards/:id', [FlashcardsController, 'show']).as('flashcards.show')
+    // Gestion Flashcards
 
-router.get('/flashcards/:id/add', [FlashcardsController, 'create']).as('flashcards.create')
+    router.get('/flashcards', [FlashcardsController, 'index']).as('flashcards.index')
 
-router.post('/flashcards/:id/add', [FlashcardsController, 'store']).as('flashcards.store')
+    router.get('/flashcards/:id', [FlashcardsController, 'show']).as('flashcards.show')
 
-router.get('/flashcards/:id/edit', [FlashcardsController, 'edit']).as('flashcards.edit')
+    router.get('/flashcards/:id/add', [FlashcardsController, 'create']).as('flashcards.create')
 
-router.post('/flashcards/:id/edit', [FlashcardsController, 'update']).as('flashcards.update')
+    router.post('/flashcards/:id/add', [FlashcardsController, 'store']).as('flashcards.store')
 
-router.get('/flashcards/:id/delete', [FlashcardsController, 'delete']).as('flashcards.delete')
+    router.get('/flashcards/:id/edit', [FlashcardsController, 'edit']).as('flashcards.edit')
 
-router.delete('/flashcards/:id/', [FlashcardsController, 'destroy']).as('flashcards.destroy')
+    router.post('/flashcards/:id/edit', [FlashcardsController, 'update']).as('flashcards.update')
 
-// TODO : Route de login
+    router.get('/flashcards/:id/delete', [FlashcardsController, 'delete']).as('flashcards.delete')
 
-// TODO : Route de register
+    router.delete('/flashcards/:id/', [FlashcardsController, 'destroy']).as('flashcards.destroy')
 
-// router.post('/register', []).as('users.create')
+    // TODO : Page de gestion des decks et des cartes
 
-router.post('/users/add', [UsersController, 'store']).as('users.store')
-
-// TODO : Page de gestion des decks et des cartes
-
-// TODO : Page de jeu (avec les decks et les cartes)
+    // TODO : Page de jeu (avec les decks et les cartes)
+  })
+  .middleware(middleware.auth()) // Middleware d'authentification
 
 // TODO : Page 404 : Page non trouvée
 router.get('*', async (ctx: HttpContext) => {

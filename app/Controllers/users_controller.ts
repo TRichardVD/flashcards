@@ -1,5 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import User from '#models/user'
+import { registerUserValidator } from '#validators/user'
 
 export default class UsersController {
   async index({ response }: HttpContext) {
@@ -21,15 +22,20 @@ export default class UsersController {
 
   //public async create({ view }: HttpContext) {}
 
-  public async store({ request, response }: HttpContext) {
+  public async store({ request, response, session }: HttpContext) {
+    // Validation des données
+    const data = await request.validateUsing(registerUserValidator)
     try {
-      const { fullName, email, password } = request.body()
-      const user = await User.create({
+      const { fullName, email, password } = data
+      await User.create({
         email: email,
         password: password,
         fullName: fullName,
       })
-      return response.json({ message: 'Utilisateur correctement créé', data: user })
+
+      session.flash('success', 'Utilisateur créer avec succès')
+
+      return response.redirect().toRoute('home')
     } catch (err) {
       console.error(err)
       return response.json({
