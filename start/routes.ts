@@ -51,7 +51,7 @@ router.post('/flashcards/:id/edit', [FlashcardsController, 'update']).as('flashc
 
 router.get('/flashcards/:id/delete', [FlashcardsController, 'delete']).as('flashcards.delete')
 
-router.post('/flashcards/:id/delete', [FlashcardsController, 'destroy']).as('flashcards.destroy')
+router.delete('/flashcards/:id/', [FlashcardsController, 'destroy']).as('flashcards.destroy')
 
 // TODO : Route de login
 

@@ -3,8 +3,7 @@
     <h2>
       Supprimer la carte {{ flashcard.recto }} - {{ flashcard.verso }}
     </h2>
-    <form action="/flashcards/{{ flashcard.id }}/delete" method="POST">
-      <input type="hidden" name="_method" value="DELETE" />
+    <form action="/flashcards/{{ flashcard.id }}?_method=DELETE" method="POST">
       <input type="hidden" name="deck_id" value="{{ flashcard.deck_id }}" />
       <button
         class="button"
