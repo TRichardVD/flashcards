@@ -6,8 +6,8 @@ export const FlashcardFactory = factory
     return {
       recto: faker.lorem.words(5),
       verso: faker.lorem.words(5),
-      deck_id: faker.number.int({ min: 1, max: 20 }),
-      user_id: faker.number.int({ min: 1, max: 20 }),
+      deck_fk: faker.number.int({ min: 1, max: 20 }),
+      user_fk: faker.number.int({ min: 1, max: 20 }),
     }
   })
   .build()

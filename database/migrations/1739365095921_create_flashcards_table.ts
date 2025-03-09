@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.string('verso').notNullable()
 
       table
-        .integer('deck_id')
+        .integer('deck_fk')
         .unsigned()
         .references('id')
         .inTable('t_decks')
@@ -18,7 +18,7 @@ export default class extends BaseSchema {
         .onUpdate('CASCADE')
 
       table
-        .integer('user_id')
+        .integer('user_fk')
         .unsigned()
         .notNullable()
         .references('id')

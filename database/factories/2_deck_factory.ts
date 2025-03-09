@@ -5,7 +5,7 @@ export const DeckFactory = factory
   .define(Deck, async ({ faker }) => {
     return {
       name: faker.lorem.words(2),
-      user_id: faker.number.int({ min: 1, max: 20 }),
+      user_fk: faker.number.int({ min: 1, max: 20 }),
     }
   })
   .build()

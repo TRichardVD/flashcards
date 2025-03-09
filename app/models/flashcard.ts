@@ -16,13 +16,13 @@ export default class Flashcard extends BaseModel {
   declare verso: String
 
   @column()
-  declare deckId: number
+  declare deck_fk: number
 
   @belongsTo(() => Deck)
   declare deck: ReturnType<typeof belongsTo>
 
   @column()
-  declare user_id: number
+  declare user_fk: number
 
   @belongsTo(() => User)
   declare user: ReturnType<typeof belongsTo>

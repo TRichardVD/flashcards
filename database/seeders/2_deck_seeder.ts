@@ -8,17 +8,17 @@ export default class extends BaseSeeder {
       {
         id: 1,
         name: 'Français-English',
-        user_id: 1,
+        user_fk: 1,
       },
       {
         id: 2,
         name: 'Spanish-Français',
-        user_id: 1,
+        user_fk: 1,
       },
       {
         id: 3,
         name: 'Allemand-Italien',
-        user_id: 2,
+        user_fk: 2,
       },
     ])
     await DeckFactory.createMany(30)

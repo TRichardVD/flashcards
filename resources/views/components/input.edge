@@ -1,12 +1,22 @@
 <label for="{{ name }}">{{ label || "champ" }}</label>
 @if(type === 'textarea')
-  <textarea name="{{ name }}" placeholder="{{ placeholder || '' }}">{{ value || '' }}</textarea>
+  <textarea
+    class="{{ flashMessages.has(`errors.${name}`) ? 'validation-error' : '' }}"
+    name="{{ name }}"
+    placeholder="{{ placeholder || '' }}"
+  >{{ flashMessages.get(name) || value || '' }}</textarea>
 @else
   <input
+    class="{{ flashMessages.has(`errors.${name}`) ? 'validation-error' : '' }}"
     type="{{ type || 'text' }}"
     name="{{ name }}"
-    value="{{ value || '' }}"
+    value="{{ flashMessages.get(name) || value || '' }}"
     placeholder="{{ placeholder || '' }}"
   />
 @endif
 
+@if(flashMessages.has(`errors.${name}`))
+  <p class="error-message">
+    {{ flashMessages.get(`errors.${name}`) }}
+  </p>
+@endif

@@ -13,7 +13,7 @@ export default class Deck extends BaseModel {
   declare name: string
 
   @column()
-  declare user_id: number
+  declare user_fk: number
 
   @belongsTo(() => User)
   declare user: ReturnType<typeof belongsTo>
