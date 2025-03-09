@@ -8,16 +8,19 @@ export default class extends BaseSeeder {
       {
         id: 1,
         name: 'Français-English',
+        description: "Un deck pour apprendre le français et l'anglais",
         user_fk: 1,
       },
       {
         id: 2,
         name: 'Spanish-Français',
+        description: "Un deck pour apprendre l'espagnol et le français",
         user_fk: 1,
       },
       {
         id: 3,
         name: 'Allemand-Italien',
+        description: "Un deck pour apprendre l'allemand et l'italien",
         user_fk: 2,
       },
     ])

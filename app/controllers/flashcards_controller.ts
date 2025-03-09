@@ -20,14 +20,14 @@ export default class FlashcardsController {
     }
   }
 
-  public async store({ response, request, params, session }: HttpContext) {
+  public async store({ response, request, params, session, auth }: HttpContext) {
     const { recto, verso } = await FlashcardValidator.validate(request.all())
 
     const fc = new Flashcard()
     fc.recto = recto
     fc.verso = verso
     fc.deck_fk = Number(params.id)
-    fc.user_fk = 1
+    fc.user_fk = Number(auth.user?.id)
 
     await fc.save()
 

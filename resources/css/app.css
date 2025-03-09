@@ -26,6 +26,37 @@ body {
   line-height: 1.6;
 }
 
+/* Links styling */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+a:active {
+  color: var(--accent);
+}
+
+table a {
+  font-weight: 500;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+table a:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+  text-decoration: none;
+}
+
+td a + a {
+  margin-left: 0.5rem;
+}
+
 /* Header */
 header {
   display: flex;
@@ -255,6 +286,20 @@ button.danger:hover {
   margin-top: 1rem;
 }
 
+/* Deck description */
+.deck-description {
+  background-color: rgba(76, 175, 80, 0.05);
+  padding: 1rem;
+  border-left: 4px solid var(--primary);
+  margin-bottom: 1.5rem;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  font-style: italic;
+  color: var(--dark);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .deck-list th {
   text-align: left;
   padding: 1rem;
@@ -398,4 +443,21 @@ footer a {
 
 .auth-form h2 {
   margin-bottom: 2rem;
+}
+
+/* User Profile */
+.user-profile-section {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: 0 4px 8px var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.user-profile-section h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 0.5rem;
+  font-size: 1.5rem;
 }

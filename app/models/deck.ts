@@ -13,6 +13,9 @@ export default class Deck extends BaseModel {
   declare name: string
 
   @column()
+  declare description: string | null
+
+  @column()
   declare user_fk: number
 
   @belongsTo(() => User)

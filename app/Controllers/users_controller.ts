@@ -1,6 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import User from '#models/user'
 import { registerUserValidator } from '#validators/user'
+import Deck from '#models/deck'
 
 export default class UsersController {
   async index({ response }: HttpContext) {
@@ -12,12 +13,29 @@ export default class UsersController {
     }
   }
 
-  async show({ params, response }: HttpContext) {
-    try {
-      return response.send(await User.find(params.id))
-    } catch (err) {
-      return response.send('Erreur')
+  async show({ params, response, session, view }: HttpContext) {
+    // Vérification du paramètre id
+    if (!params.id || isNaN(params.id)) {
+      session.flash('error', "ID de l'utilisateur invalide")
+      return response.redirect().toRoute('home')
     }
+
+    const user = await this.getUserPublicData(params.id)
+
+    if (!user) {
+      session.flash('error', 'Utilisateur introuvable')
+      return response.redirect().toRoute('home')
+    }
+
+    // Récupération des decks de l'utilisateur
+    const decks = await this.getDecks(user.id)
+
+    const data = { ...user, decks }
+    console.log('data', data)
+
+    return view.render('pages/Users/show', {
+      user: { ...data },
+    })
   }
 
   //public async create({ view }: HttpContext) {}
@@ -49,4 +67,14 @@ export default class UsersController {
   //public async destroy({ params, response }: HttpContext) {}
 
   //public async edit({ params }: HttpContext) {}
+
+  private async getDecks(userId: number) {
+    const decks = await Deck.query().where('user_fk', userId).orderBy('id', 'asc')
+    return decks
+  }
+
+  private async getUserPublicData(userId: number) {
+    const user = await User.query().where('id', userId).select(['id', 'fullName']).first()
+    return user?.$original
+  }
 }

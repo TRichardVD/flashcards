@@ -1,0 +1,58 @@
+@layout.main({
+    title: `${user.fullName} Profile`,
+    description: 'User profile page',
+    activeMenu: 'user'
+})
+
+  @slot('main')
+    <h2>
+      {{ user.fullName }} Profile
+    </h2>
+
+    <div class="user-profile-section">
+      {{-- liste des decks --}}
+      <h3>
+        My Decks
+      </h3>
+      @if(user.decks.length === 0)
+        <p class="deck-description">
+          No decks available. Create your first deck to get started!
+        </p>
+      @else
+        <table class="deck-list">
+          <thead>
+            <tr>
+              <th>
+                Deck Name
+              </th>
+              <th>
+                Description
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @each(deck in user.decks)
+              <tr>
+                <td>
+                  <a href="/decks/{{ deck.id }}">{{ deck.name }}</a>
+                </td>
+                <td>
+                  {{ deck.description || "-" }}
+                </td>
+              </tr>
+            @endeach
+          </tbody>
+        </table>
+      @endif
+      
+      {{-- Bouton pour créer un deck --}}
+      <div class="add-button">
+        <a href="/decks/add" class="button">
+          Create a new deck
+        </a>
+      </div>
+    </div>
+
+  @end
+    
+@end

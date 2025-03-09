@@ -24,14 +24,22 @@ export default class DecksController {
     }
   }
 
-  // public async create({ view }: HttpContext) {}
+  public async create({ view }: HttpContext) {
+    return view.render('pages/Decks/add')
+  }
 
-  public async store({ request, response }: HttpContext) {
+  public async store({ request, response, session, auth }: HttpContext) {
     try {
-      const { name } = await DeckValidator.validate(request.body())
+      const { name, description } = await DeckValidator.validate(request.body())
 
-      const deck = await Deck.create({ name: name, user_fk: 1 })
-      return response.json({ message: 'Nouveau deck créé', data: deck })
+      const deck = await Deck.create({
+        name: name,
+        user_fk: Number(auth.user?.id),
+        description: description,
+      })
+      session.flash('success', 'Deck créé avec succès')
+
+      return response.redirect().toRoute('decks.show', { id: deck.id })
     } catch (err) {
       return response.json({ error: "Une erreur s'est produite durant la création du deck" })
     }

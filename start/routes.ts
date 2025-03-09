@@ -47,14 +47,11 @@ router
     // Gestion Decks
     router.get('/decks', [DecksController, 'index']).as('decks.index')
 
-    router.get('/decks/:id', [DecksController, 'show']).as('decks.show')
-
     // Route pour créer un deck
-    // router.get('/decks/add', async (ctx : HttpContext) => {
+    router.get('/decks/add', [DecksController, 'create']).as('decks.create')
 
-    // })
-
-    router.post('/decks/add', [DecksController, 'store'])
+    router.post('/decks/add', [DecksController, 'store']).as('decks.store')
+    router.get('/decks/:id', [DecksController, 'show']).as('decks.show')
 
     // Gestion Flashcards
 
