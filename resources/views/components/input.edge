@@ -4,6 +4,8 @@
     class="{{ flashMessages.has(`errors.${name}`) ? 'validation-error' : '' }}"
     name="{{ name }}"
     placeholder="{{ placeholder || '' }}"
+    minlength="{{ minlength || '' }}"
+    maxlength="{{ maxlength || '' }}"
   >{{ flashMessages.get(name) || value || '' }}</textarea>
 @else
   <input
@@ -12,6 +14,8 @@
     name="{{ name }}"
     value="{{ type === 'password' ? '' : (flashMessages.get(name) || value || '') }}"
     placeholder="{{ placeholder || '' }}"
+    minlength="{{ minlength || '' }}"
+    maxlength="{{ maxlength || '' }}"
   />
 @endif
 
