@@ -46,9 +46,6 @@ Avec **WOP : World Of Flashcards**, transformez l'apprentissage en une expérien
 
 ## To do :
 
-- [ ] Modification des decks
-- [ ] Supression des decks
-- [ ] Sécurisation des modifications etc. afin de laisser uniquement l'auteur pouvoir faire ceci
 - [ ] Etudier un deck
 - [ ] Mettre en publique un deck
 - [ ] Ajout csrf

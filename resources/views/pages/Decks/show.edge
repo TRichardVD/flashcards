@@ -1,28 +1,34 @@
 @layout.main({ title: deck.name })
   @slot('main')
-    <h2>
-      {{ deck.name }}
-    </h2>
-    <p class="deck-description">
-      {{ deck.description || '-' }}
-    </p>
+    <div class="deck-header">
+      <h2>
+        {{ deck.name }}
+      </h2>
+      <p class="deck-description">
+        {{ deck.description || 'Aucune description' }}
+      </p>
+    </div>
+
     <table>
       <thead>
-        <th>
-          ID
-        </th>
-        <th>
-          Recto
-        </th>
-        <th>
-          Verso
-        </th>
-        <th>
-        </th>
+        <tr>
+          <th>
+            ID
+          </th>
+          <th>
+            Recto
+          </th>
+          <th>
+            Verso
+          </th>
+          <th>
+            Actions
+          </th>
+        </tr>
       </thead>
       <tbody>
         @each(card in flashcards)
-          <tr>
+          <tr class="clickable-row" data-href="/flashcards/{{ card.id }}">
             <td>
               {{ card.id }}
             </td>
@@ -33,8 +39,10 @@
               {{ card.verso }}
             </td>
             <td>
-              <a href="/flashcards/{{ card.id }}/edit">edit</a>
-              <a href="/flashcards/{{ card.id }}/delete">delete</a>
+              <div class="card-actions">
+                <a href="/flashcards/{{ card.id }}/edit" class="edit" onclick="event.stopPropagation()">Modifier</a>
+                <a href="/flashcards/{{ card.id }}/delete" class="delete" onclick="event.stopPropagation()">Supprimer</a>
+              </div>
             </td>
           </tr>
         @endeach
@@ -42,10 +50,30 @@
       <tfoot>
         <tr>
           <td colspan="4">
-            <a style="text-align: center" href="/flashcards/{{ deck.id }}/add">Create a new card</a>
+            <a style="text-align: center" href="/flashcards/{{ deck.id }}/add">Ajouter une carte</a>
           </td>
         </tr>
       </tfoot>
+      @if(flashcards.length === 0)
+        <tfoot>
+          <tr>
+            <td colspan="4">
+              Aucune carte disponible. Ajoutez-en une pour commencer.
+            </td>
+          </tr>
+        </tfoot>
+      @endif
     </table>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const rows = document.querySelectorAll(".clickable-row");
+        rows.forEach(row => {
+          row.addEventListener("click", () => {
+            window.location.href = row.dataset.href;
+          });
+        });
+      });
+    </script>
   @endslot
 @end

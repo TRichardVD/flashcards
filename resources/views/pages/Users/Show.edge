@@ -29,6 +29,7 @@
                 Description
               </th>
               <th>
+                Actions
               </th>
             </tr>
           </thead>
@@ -42,14 +43,18 @@
                   {{ deck.description || "-" }}
                 </td>
                 <td>
-                  <a href="/decks/{{ deck.id }}/edit" class="button">
-                    Edit
-                </a>
-                  <form action="/decks/{{ deck.id }}?_method=DELETE" method="POST">
-                    <button type="submit" class="button">
-                      Delete
-                    </button>
-                  </form>
+                  <div class="card-actions">
+                    <form action="/decks/{{ deck.id }}/edit" method="GET" style="display: inline;">
+                      <button type="submit" class="button">
+                        Edit
+                      </button>
+                    </form>
+                    <form action="/decks/{{ deck.id }}?_method=DELETE" method="POST" style="display: inline;">
+                      <button type="submit" class="button danger">
+                        Delete
+                      </button>
+                    </form>
+                  </div>
                 </td>
               </tr>
             @endeach

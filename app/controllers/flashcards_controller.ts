@@ -12,12 +12,16 @@ export default class FlashcardsController {
       return response.send('Erreur')
     }
   }
-  public async show({ response, params }: HttpContext) {
-    try {
-      return response.send(await Flashcard.find(params.id))
-    } catch (err) {
-      return response.send('Erreur')
+  public async show({ response, params, view, session, auth }: HttpContext) {
+    const card = await Flashcard.findByOrFail('id', params.id)
+    if (!card) {
+      return session.flash('error', 'Flashcard introuvable')
     }
+    if (card?.user_fk !== auth.user?.id) {
+      return session.flash('error', "Vous n'avez pas accès à ce deck")
+    }
+
+    return view.render('pages/Flashcards/show', { flashcard: card })
   }
 
   public async store({ response, request, params, session, auth }: HttpContext) {
@@ -41,6 +45,11 @@ export default class FlashcardsController {
     if (!deck) {
       return ctx.response.send('Deck introuvable')
     }
+
+    if (deck?.user_fk !== ctx.auth.user?.id) {
+      return ctx.response.send("Vous n'avez pas accès à ce deck")
+    }
+
     return ctx.view.render('pages/Flashcards/add', { deck: deck })
   }
 

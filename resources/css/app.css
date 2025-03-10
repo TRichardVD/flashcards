@@ -184,6 +184,13 @@ textarea {
   transition: all 0.3s ease;
 }
 
+/* Styles spécifiques pour les textarea avec taille fixe */
+textarea {
+  height: 150px;
+  resize: none;
+  overflow-y: auto;
+}
+
 input[type='text']:focus,
 input[type='password']:focus,
 input[type='email']:focus,
@@ -460,4 +467,131 @@ footer a {
   border-bottom: 2px solid var(--primary);
   padding-bottom: 0.5rem;
   font-size: 1.5rem;
+}
+
+/* Flashcard Styling */
+.flashcard-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flip-container {
+  perspective: 1000px;
+  margin: 2rem auto;
+  width: 350px;
+  height: 250px;
+  cursor: pointer;
+}
+
+.flipper {
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.flip-container.hover .flipper {
+  transform: rotateY(180deg);
+}
+
+.front,
+.back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 8px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.front {
+  z-index: 2;
+  background-color: white;
+  border-left: 4px solid var(--primary);
+}
+
+.back {
+  background-color: #e9ecef;
+  border-left: 4px solid var(--secondary);
+  transform: rotateY(180deg);
+}
+
+.flashcard-content {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  word-break: break-word;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: auto;
+  font-style: italic;
+}
+
+.flashcard-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+/* Clickable rows for deck flashcards */
+.clickable-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.clickable-row:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+/* Deck display enhancements */
+.deck-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.deck-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.card-actions a {
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  color: var(--dark);
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.card-actions a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.card-actions a.edit {
+  color: var(--primary);
+}
+
+.card-actions a.delete {
+  color: var(--error);
 }

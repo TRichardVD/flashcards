@@ -1,0 +1,50 @@
+@layout.main({ title: 'Flashcard' })
+  @slot('main')
+    <div class="flashcard-container">
+      <div class="flip-container" id="flashcard-flip">
+        <div class="flipper">
+          <div class="front">
+            <h2>
+              Recto
+            </h2>
+            <p class="flashcard-content">
+              {{ flashcard.recto }}
+            </p>
+            <p class="hint">
+              (Cliquez pour voir la réponse)
+            </p>
+          </div>
+          <div class="back">
+            <h2>
+              Verso
+            </h2>
+            <p class="flashcard-content">
+              {{ flashcard.verso }}
+            </p>
+            <p class="hint">
+              (Cliquez pour retourner)
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard-actions">
+        <a href="{{ route('flashcards.edit', {id : flashcard.id}) }}" class="button">Modifier</a>
+        <form action="{{ route('flashcards.destroy', {id : flashcard.id}) }}?_method=DELETE" method="POST">
+          <button type="submit" class="danger">Supprimer</button>
+        </form>
+
+        <a href="{{ route('decks.show', {id: flashcard.deck_fk}) }}" class="button secondary">Retour au deck</a>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const flashcard = document.getElementById("flashcard-flip");
+        flashcard.addEventListener("click", function() {
+          this.classList.toggle("hover");
+        });
+      });
+    </script>
+  @end
+@end
