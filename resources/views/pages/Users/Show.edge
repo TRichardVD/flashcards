@@ -28,6 +28,8 @@
               <th>
                 Description
               </th>
+              <th>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -39,12 +41,22 @@
                 <td>
                   {{ deck.description || "-" }}
                 </td>
+                <td>
+                  <a href="/decks/{{ deck.id }}/edit" class="button">
+                    Edit
+                </a>
+                  <form action="/decks/{{ deck.id }}?_method=DELETE" method="POST">
+                    <button type="submit" class="button">
+                      Delete
+                    </button>
+                  </form>
+                </td>
               </tr>
             @endeach
           </tbody>
         </table>
       @endif
-      
+        
       {{-- Bouton pour créer un deck --}}
       <div class="add-button">
         <a href="/decks/add" class="button">

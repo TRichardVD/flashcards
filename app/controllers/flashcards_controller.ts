@@ -54,7 +54,7 @@ export default class FlashcardsController {
     return view.render('pages/Flashcards/edit', { flashcard: card, deck: deck })
   }
 
-  public async update({ params, request, response, session }: HttpContext) {
+  public async update({ params, request, response, session, auth }: HttpContext) {
     const card = await Flashcard.findByOrFail('id', params.id)
     if (!card) {
       session.flash('error', 'Flashcard introuvable')
@@ -62,6 +62,12 @@ export default class FlashcardsController {
     }
 
     const data = await FlashcardValidator.validate(request.body())
+
+    if (card?.user_fk !== auth.user?.id) {
+      session.flash('error', "Vous n'avez pas accès à ce deck")
+      return response.redirect().toRoute('users.show', { id: auth.user?.id })
+    }
+
     try {
       card.merge(data)
       await card.save()
@@ -77,8 +83,14 @@ export default class FlashcardsController {
     }
   }
 
-  public async destroy({ params, response, session }: HttpContext) {
+  public async destroy({ params, response, session, auth }: HttpContext) {
     const card = await Flashcard.findByOrFail('id', params.id)
+
+    if (card?.user_fk !== auth.user?.id) {
+      session.flash('error', "Vous n'avez pas accès à ce deck")
+      return response.redirect().toRoute('user.show', { id: auth.user?.id })
+    }
+
     await card.delete()
     session.flash('success', 'Objet supprimé avec succès')
     return response.redirect().toRoute('decks.show', { id: card.deck_fk })

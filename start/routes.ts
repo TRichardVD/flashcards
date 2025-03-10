@@ -53,6 +53,11 @@ router
     router.post('/decks/add', [DecksController, 'store']).as('decks.store')
     router.get('/decks/:id', [DecksController, 'show']).as('decks.show')
 
+    router.delete('/decks/:id', [DecksController, 'destroy']).as('decks.destroy')
+
+    router.get('/decks/:id/edit', [DecksController, 'edit']).as('decks.edit')
+    router.put('/decks/:id', [DecksController, 'update']).as('decks.update')
+
     // Gestion Flashcards
 
     router.get('/flashcards', [FlashcardsController, 'index']).as('flashcards.index')
