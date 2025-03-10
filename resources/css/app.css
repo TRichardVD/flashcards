@@ -18,6 +18,8 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) rgba(0, 0, 0, 0.05);
 }
 
 body {
@@ -482,7 +484,7 @@ footer a {
   perspective: 1000px;
   margin: 2rem auto;
   width: 350px;
-  height: 250px;
+  height: 350px; /* Hauteur fixe pour éviter les débordements */
   cursor: pointer;
 }
 
@@ -511,9 +513,8 @@ footer a {
   box-shadow: 0 4px 8px var(--shadow);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
+  overflow: hidden; /* Empêche le débordement du contenu */
 }
 
 .front {
@@ -528,10 +529,21 @@ footer a {
   transform: rotateY(180deg);
 }
 
+.flashcard-content-container {
+  width: 100%;
+  flex-grow: 1; /* Prend tout l'espace disponible */
+  overflow-y: auto; /* Ajoute scrollbar uniquement si nécessaire */
+  margin: 0.5rem 0;
+  padding-right: 5px;
+  max-height: calc(100% - 80px); /* Laisse de la place pour le titre et le hint */
+}
+
 .flashcard-content {
   font-size: 1.2rem;
-  margin: 1rem 0;
   word-break: break-word;
+  white-space: pre-line;
+  text-align: left;
+  padding: 0.5rem 0;
 }
 
 .hint {
@@ -539,6 +551,9 @@ footer a {
   color: #6c757d;
   margin-top: auto;
   font-style: italic;
+  width: 100%; /* Assure que le hint reste en bas */
+  text-align: center;
+  padding-top: 0.5rem;
 }
 
 .flashcard-actions {
@@ -546,6 +561,7 @@ footer a {
   gap: 1rem;
   margin-top: 2rem;
   justify-content: center;
+  width: 100%;
 }
 
 /* Clickable rows for deck flashcards */
@@ -594,4 +610,25 @@ footer a {
 
 .card-actions a.delete {
   color: var(--error);
+}
+
+/* Modern scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
 }
