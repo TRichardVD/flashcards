@@ -17,7 +17,7 @@ export default class DecksController {
     try {
       const deck = await Deck.find(params.id)
       const flashcards = await Flashcard.query().where('deck_fk', params.id).orderBy('id', 'asc')
-      return view.render('pages/FlashcardsEdition/show', { flashcards: flashcards, deck: deck })
+      return view.render('pages/Decks/show', { flashcards: flashcards, deck: deck })
     } catch (err) {
       console.log(err)
       return response.send('Erreur')
