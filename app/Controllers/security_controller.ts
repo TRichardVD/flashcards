@@ -36,6 +36,6 @@ export default class SecurityController {
   logout = async ({ auth, response, session }: HttpContext) => {
     await auth.use('web').logout()
     session.flash('success', 'Vous êtes déconnecté avec succès')
-    return response.redirect().toRoute('home')
+    return response.redirect().toRoute('login')
   }
 }
