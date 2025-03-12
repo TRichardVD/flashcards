@@ -34,7 +34,73 @@ Le projet repose sur les technologies suivantes :
 - **Template Engine** : Edge.js pour le rendu des vues.
 - **Contrôle de version** : Git et GitHub.
 
-<!-- ## Installation -->
+## Installation
+
+1. Clonez le dépôt :
+
+```bash
+git clone https://github.com/votrenom/flashcards.git
+cd flashcards
+```
+
+2. Installez les dépendances :
+
+```bash
+npm install
+```
+
+3. Configurez la base de données :
+
+- Copiez le fichier `.env.example` vers `.env`
+- Modifiez les variables de connexion MySQL dans `.env` :
+
+```env
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=votre_user
+DB_PASSWORD=votre_password
+DB_DATABASE=flashcards
+```
+
+4. Générez une clé d'application :
+
+```bash
+node ace generate:key
+```
+
+- Copiez la clé générée dans `.env` pour `APP_KEY`
+
+5. Créez la base de données :
+
+```bash
+node ace migration:run
+```
+
+6. Ajoutez des données de test (optionnel) :
+
+```bash
+node ace db:seed
+```
+
+7. Lancez l'application :
+
+```bash
+# Mode développement
+npm run dev
+
+# Mode production
+npm run build
+npm start
+```
+
+L'application sera accessible à l'adresse : http://localhost:3333
+
+### Comptes de test
+
+Si vous avez exécuté les seeds, vous pouvez utiliser ces comptes :
+
+- Email : marie.dupont@example.com / Password : motDePasse1
+- Email : jean.jacques@example.com / Password : motDePasse2
 
 <!-- ## Utilisation -->
 
