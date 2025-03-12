@@ -29,17 +29,26 @@ L'application inclut les fonctionnalités suivantes, conformément au cahier des
 Le projet repose sur les technologies suivantes :
 
 - **Framework principal** : AdonisJS (TypeScript-first).
-- **Base de données** : MySQL (par défaut, configurable).
+- **Base de données** : MySQL.
 - **Gestion des dépendances** : npm.
 - **Template Engine** : Edge.js pour le rendu des vues.
 - **Contrôle de version** : Git et GitHub.
 
-## Installation
+### Prérequis
+
+Avant d'installer le projet, assurez-vous d'avoir les logiciels suivants installés :
+
+- Node.js (v20.0.0 ou supérieur, version testée : v20.11.0)
+- MySQL (v8.0 ou supérieur, version testée : 8.0.30)
+- Git (v2.0 ou supérieur)
+- npm (v10.0.0 ou supérieur, version testée : 10.2.4)
+
+### Installation
 
 1. Clonez le dépôt :
 
 ```bash
-git clone https://github.com/votrenom/flashcards.git
+git clone https://github.com/TRichardVD/flashcards.git
 cd flashcards
 ```
 
