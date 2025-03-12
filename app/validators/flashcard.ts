@@ -8,9 +8,17 @@ export const FlashcardValidator = (deck_fk: number, card_fk: number) =>
         .minLength(10)
         .maxLength(1000)
         .unique(async (db, value) => {
-          if (!deck_fk || !card_fk) {
-            return true
+          if (!deck_fk) return false
+          if (!card_fk) {
+            const existingCard = await db
+              .from('t_flashcards')
+              .where('recto', value)
+              .andWhere('deck_fk', deck_fk)
+              .first()
+
+            return !existingCard
           }
+          console.log('Validation en cours...')
           const existingCard = await db
             .from('t_flashcards')
             .where('recto', value)

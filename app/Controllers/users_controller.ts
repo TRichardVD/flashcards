@@ -40,16 +40,26 @@ export default class UsersController {
 
   //public async create({ view }: HttpContext) {}
 
-  public async store({ request, response, session }: HttpContext) {
+  public async store({ request, response, session, auth }: HttpContext) {
     // Validation des données
     const data = await request.validateUsing(registerUserValidator)
     try {
       const { username, email, password } = data
-      await User.create({
+      const user = await User.create({
         email: email,
         password: password,
         username: username,
       })
+
+      try {
+        await auth.use('web').login(user)
+      } catch (err) {
+        console.error('Erreur dans la création de la session', err)
+        session.flash('error', 'Erreur dans la création de la session')
+        return response.redirect().toRoute('login')
+      }
+
+      console.log('Utilisateur connecté avec succès', user)
 
       session.flash('success', 'Utilisateur créer avec succès')
 

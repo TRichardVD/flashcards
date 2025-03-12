@@ -39,11 +39,10 @@
       </div>
 
       <div class="flashcard-actions">
-        <a class="button" href="{{ route('decks.show', {id : flashcard.deck_fk}) }}">OK</a>
         <a href="{{ route('flashcards.edit', {id : flashcard.id}) }}" class="button">Modifier</a>
         <button class="danger" onclick="openModal()">Supprimer</button>
 
-        <a href="{{ route('decks.show', {id: flashcard.deck_fk}) }}" class="button secondary">Retour au deck</a>
+        <a href="{{ route('decks.show', {id: flashcard.deck_fk}) }}" class="button secondary">OK</a>
       </div>
     </div>
 

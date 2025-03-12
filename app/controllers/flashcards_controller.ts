@@ -25,12 +25,14 @@ export default class FlashcardsController {
   }
 
   public async store({ response, request, params, session, auth }: HttpContext) {
-    const { recto, verso } = await request.validateUsing(FlashcardValidator(0, 0))
+    const deckId = Number(params.id)
+
+    const { recto, verso } = await request.validateUsing(FlashcardValidator(deckId, 0))
 
     const fc = new Flashcard()
     fc.recto = recto
     fc.verso = verso
-    fc.deck_fk = Number(params.id)
+    fc.deck_fk = deckId
     fc.user_fk = Number(auth.user?.id)
 
     await fc.save()
@@ -40,7 +42,6 @@ export default class FlashcardsController {
   }
 
   public create = async (ctx: HttpContext) => {
-    // TODO : Retourner le formulaire
     const deck = await Deck.findByOrFail('id', Number(ctx.params.id))
     if (!deck) {
       return ctx.response.send('Deck introuvable')
