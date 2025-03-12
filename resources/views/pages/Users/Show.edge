@@ -1,12 +1,12 @@
 @layout.main({
-    title: `${user.fullName} Profile`,
+    title: `${user.username} Profile`,
     description: 'User profile page',
     activeMenu: 'user'
 })
 
   @slot('main')
     <h2>
-      {{ user.fullName }} Profile
+      {{ user.username }} Profile
     </h2>
 
     <div class="user-profile-section">

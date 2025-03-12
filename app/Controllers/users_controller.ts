@@ -44,11 +44,11 @@ export default class UsersController {
     // Validation des données
     const data = await request.validateUsing(registerUserValidator)
     try {
-      const { fullName, email, password } = data
+      const { username, email, password } = data
       await User.create({
         email: email,
         password: password,
-        fullName: fullName,
+        username: username,
       })
 
       session.flash('success', 'Utilisateur créer avec succès')
@@ -74,7 +74,7 @@ export default class UsersController {
   }
 
   private async getUserPublicData(userId: number) {
-    const user = await User.query().where('id', userId).select(['id', 'fullName']).first()
+    const user = await User.query().where('id', userId).select(['id', 'username']).first()
     return user?.$original
   }
 }
