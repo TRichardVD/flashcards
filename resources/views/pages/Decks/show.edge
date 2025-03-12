@@ -1,5 +1,6 @@
 @layout.main({ title: deck.name })
   @slot('main')
+
     <div class="deck-header">
       <h2>
         {{ deck.name }}
@@ -41,7 +42,10 @@
             <td>
               <div class="card-actions">
                 <a href="/flashcards/{{ card.id }}/edit" class="edit" onclick="event.stopPropagation()">Modifier</a>
-                <a href="/flashcards/{{ card.id }}/delete" class="delete" onclick="event.stopPropagation()">Supprimer</a>
+                <button
+                  class="delete"
+                  onclick="openModal('{{ route('flashcards.destroy', {id: card.id}) }}?_method=DELETE'); event.stopPropagation()"
+                >Supprimer</button>
               </div>
             </td>
           </tr>
@@ -65,7 +69,30 @@
       @endif
     </table>
 
+    <!-- Modal dynamique -->
+    <div class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2>
+          Êtes-vous sûr de vouloir supprimer la flashcard ?
+        </h2>
+        <form id="deleteForm" method="POST" action="">
+          <button type="submit" class="button">OK</button>
+          <button type="button" onclick="closeModal()" class="delete">Annuler</button>
+        </form>
+      </div>
+    </div>
+
     <script>
+      function openModal(actionUrl) {
+        document.getElementById("deleteForm").action = actionUrl;
+        document.querySelector(".modal").style.display = "block";
+      }
+      
+      function closeModal() {
+        document.querySelector(".modal").style.display = "none";
+      }
+      // Lignes cliquables
+      
       document.addEventListener("DOMContentLoaded", () => {
         const rows = document.querySelectorAll(".clickable-row");
         rows.forEach(row => {

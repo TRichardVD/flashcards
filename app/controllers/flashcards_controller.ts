@@ -25,7 +25,7 @@ export default class FlashcardsController {
   }
 
   public async store({ response, request, params, session, auth }: HttpContext) {
-    const { recto, verso } = await FlashcardValidator.validate(request.all())
+    const { recto, verso } = await request.validateUsing(FlashcardValidator(0, 0))
 
     const fc = new Flashcard()
     fc.recto = recto
@@ -70,7 +70,7 @@ export default class FlashcardsController {
       return response.redirect().back()
     }
 
-    const data = await FlashcardValidator.validate(request.body())
+    const data = await request.validateUsing(FlashcardValidator(card.deck_fk, card.id))
 
     if (card?.user_fk !== auth.user?.id) {
       session.flash('error', "Vous n'avez pas accès à ce deck")
@@ -93,7 +93,12 @@ export default class FlashcardsController {
   }
 
   public async destroy({ params, response, session, auth }: HttpContext) {
-    const card = await Flashcard.findByOrFail('id', params.id)
+    if (!params.id) {
+      session.flash('error', 'Aucun id fourni')
+      return response.redirect().back()
+    }
+
+    const card = await Flashcard.findByOrFail('id', Number(params.id))
 
     if (card?.user_fk !== auth.user?.id) {
       session.flash('error', "Vous n'avez pas accès à ce deck")

@@ -1,5 +1,11 @@
 @layout.main({ title: 'Flashcard' })
   @slot('main')
+    @modal({
+    question : 'Êtes-vous sûr de vouloirs supprimer la flashcard ?',
+    url : route('flashcards.destroy', {id : flashcard.id}) + '?_method=DELETE',
+    method : 'POST'
+    })
+    @end
     <div class="flashcard-container">
       <div class="flip-container" id="flashcard-flip">
         <div class="flipper">
@@ -33,16 +39,24 @@
       </div>
 
       <div class="flashcard-actions">
+        <a class="button" href="{{ route('decks.show', {id : flashcard.deck_fk}) }}">OK</a>
         <a href="{{ route('flashcards.edit', {id : flashcard.id}) }}" class="button">Modifier</a>
-        <form action="{{ route('flashcards.destroy', {id : flashcard.id}) }}?_method=DELETE" method="POST">
-          <button type="submit" class="danger">Supprimer</button>
-        </form>
+        <button class="danger" onclick="openModal()">Supprimer</button>
 
         <a href="{{ route('decks.show', {id: flashcard.deck_fk}) }}" class="button secondary">Retour au deck</a>
       </div>
     </div>
 
     <script>
+      // Modal
+      function openModal() {
+        document.querySelector(".modal").style.display = "block";
+      }
+      
+      function closeModal() {
+        document.querySelector(".modal").style.display = "none";
+      }
+      
       document.addEventListener("DOMContentLoaded", function() {
         const flashcard = document.getElementById("flashcard-flip");
         flashcard.addEventListener("click", function() {
