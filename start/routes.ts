@@ -10,19 +10,12 @@ import router from '@adonisjs/core/services/router'
 import UsersController from '#controllers/users_controller'
 import FlashcardsController from '#controllers/flashcards_controller'
 import DecksController from '#controllers/decks_controller'
-import HttpContext from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContext } from '@adonisjs/core/http'
 import Deck from '#models/deck'
 import { middleware } from './kernel.js'
 import { request } from 'http'
 import { loginUserValidator, registerUserValidator } from '#validators/user'
 import SecurityController from '#controllers/security_controller'
-
-// Page d'accueil
-router
-  .get('/', async (ctx: HttpContext) => {
-    return ctx.view.render('pages/home')
-  })
-  .as('home')
 
 router.get('/login', [SecurityController, 'login']).as('login')
 
@@ -36,6 +29,15 @@ router.post('/register', [UsersController, 'store']).as('users.store')
 
 router
   .group(() => {
+    router
+      .get('/', async ({ auth, response }: HttpContext) => {
+        if (!auth.user) {
+          return response.redirect().toRoute('login')
+        }
+        return response.redirect().toRoute('users.show', { id: auth.user.id })
+      })
+      .as('home')
+
     // Page de deconnexion
     router.get('/logout', [SecurityController, 'logout']).as('logout')
 
