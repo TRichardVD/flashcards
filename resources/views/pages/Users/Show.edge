@@ -35,9 +35,9 @@
           </thead>
           <tbody>
             @each(deck in user.decks)
-              <tr>
+              <tr onclick="window.location='/decks/{{ deck.id }}'" style="cursor: pointer;">
                 <td>
-                  <a href="/decks/{{ deck.id }}">{{ deck.name }}</a>
+                  {{ deck.name }}
                 </td>
                 <td>
                   {{ deck.description || "-" }}
