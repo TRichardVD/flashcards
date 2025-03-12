@@ -44,7 +44,7 @@ export default class DecksController {
       })
       session.flash('success', 'Deck créé avec succès')
 
-      return response.redirect().toRoute('decks.show', { id: deck.id })
+      return response.redirect().toRoute('users.show', { id: deck.user_fk })
     } catch (err) {
       return response.json({ error: "Une erreur s'est produite durant la création du deck" })
     }
