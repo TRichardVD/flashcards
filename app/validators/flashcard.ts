@@ -18,7 +18,6 @@ export const FlashcardValidator = (deck_fk: number, card_fk: number) =>
 
             return !existingCard
           }
-          console.log('Validation en cours...')
           const existingCard = await db
             .from('t_flashcards')
             .where('recto', value)

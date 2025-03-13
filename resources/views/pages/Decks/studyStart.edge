@@ -1,0 +1,29 @@
+@layout.main({ title: 'Mode chronométré' })
+  @slot('main')
+    <div class="deck-header">
+      <h2>
+        Étude du deck "{{ deck.name }}"
+      </h2>
+      <p class="deck-description">
+        {{ deck.description || 'Aucune description' }}
+      </p>
+    </div>
+
+    <div class="user-profile-section">
+      <h3>
+        Mode d'étude
+      </h3>
+      <p style="margin-bottom: 1.5rem;">
+        En mode chronométré, vous verrez le temps écoulé pendant que vous révisez vos flashcards.
+        Essayez d'être aussi rapide que possible tout en apprenant efficacement!
+      </p>
+
+      <form action="{{ route('study.play', { deckId: deck.id }) }}" method="POST">
+        <div style="text-align: center;">
+          <button type="submit" class="button">C'est parti!</button>
+          <a href="{{ route('decks.show', { id: deck.id }) }}" class="button secondary">Retour</a>
+        </div>
+      </form>
+    </div>
+  @endslot
+@end

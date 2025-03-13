@@ -34,7 +34,7 @@ export default class DecksController {
   }
 
   public async store({ request, response, session, auth }: HttpContext) {
-    const { name, description } = await DeckValidator.validate(request.body())
+    const { name, description } = await request.validateUsing(DeckValidator(null, auth.user?.id))
 
     try {
       const deck = await Deck.create({
@@ -68,7 +68,9 @@ export default class DecksController {
         return response.redirect().toRoute('users.show', { id: auth.user?.id })
       }
 
-      const { name, description } = await DeckValidator.validate(request.body())
+      const { name, description } = await request.validateUsing(
+        DeckValidator(deck?.id, deck?.user_fk)
+      )
 
       deck.name = name
       deck.description = description || ''

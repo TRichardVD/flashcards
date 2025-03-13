@@ -55,6 +55,23 @@
         <tr>
           <td colspan="4">
             <a style="text-align: center" href="/flashcards/{{ deck.id }}/add">Ajouter une carte</a>
+            <!-- Bouton "Exercer" avec état désactivé quand il n'y a pas de cartes -->
+            @if(flashcards.length > 0)
+              <a
+                style="text-align: center; margin-left: 1rem;"
+                href="{{ route('study.start', { deckId: deck.id }) }}"
+              >
+                Exercer
+              </a>
+            @else
+              <a
+                style="text-align: center; margin-left: 1rem; opacity: 0.5; cursor: not-allowed; pointer-events: none;"
+                href="#"
+                title="Ajoutez des cartes pour pouvoir vous exercer"
+              >
+                Exercer
+              </a>
+            @endif
           </td>
         </tr>
       </tfoot>

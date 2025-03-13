@@ -7,7 +7,7 @@ import { table } from 'console'
 export const registerUserValidator = vine.compile(
   vine.object({
     username: vine.string().trim().minLength(1).unique({ table: 't_users', column: 'username' }),
-    email: vine.string().email().trim().toLowerCase(),
+    email: vine.string().email().trim().toLowerCase().unique({ table: 't_users', column: 'email' }),
     password: vine.string().minLength(8).maxLength(8).confirmed(),
   })
 )

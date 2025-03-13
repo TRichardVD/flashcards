@@ -1,0 +1,62 @@
+@layout.main({ title: 'Fin de l\'exercice' })
+  @slot('main')
+    <div class="deck-header">
+      <h2>
+        Exercice terminé !
+      </h2>
+    </div>
+
+    <div class="user-profile-section">
+      <h3>
+        Résultats
+      </h3>
+
+      <div style="text-align: center; margin: 2rem 0;">
+        <div class="card-count" style="font-size: 1.5rem; padding: 1rem; margin-bottom: 1rem;">
+          Temps total: {{ minutes }}m {{ seconds }}s
+        </div>
+
+        <div
+          class="score-display"
+          style="background-color: rgba(76, 175, 80, 0.1); padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem;"
+        >
+          <h4 style="margin-bottom: 1rem; color: #4caf50;">
+            Score
+          </h4>
+          <div
+            style="font-size: 2rem; font-weight: bold; color: {{ score.percentage >= 70 ? '#4caf50' : (score.percentage >= 40 ? '#ff9800' : '#f44336') }};"
+          >
+            {{ score.percentage }}%
+          </div>
+          <div style="margin-top: 0.5rem; font-size: 1.2rem;">
+            {{ score.correct }} correctes sur {{ score.total }} cartes
+          </div>
+
+          <div style="margin-top: 1.5rem;">
+            @if(score.percentage >= 90)
+              <p style="color: #4caf50;">
+                Excellent travail ! Vous maîtrisez ce sujet.
+              </p>
+            @elseif(score.percentage >= 70)
+              <p style="color: #4caf50;">
+                Bon travail ! Continuez à pratiquer.
+              </p>
+            @elseif(score.percentage >= 50)
+              <p style="color: #ff9800;">
+                Vous êtes sur la bonne voie. Continuez à réviser.
+              </p>
+            @else
+              <p style="color: #f44336;">
+                Ce sujet nécessite plus de révisions. Ne vous découragez pas !
+              </p>
+            @endif
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: center; margin-top: 2rem;">
+        <a href="{{ route('home') }}" class="button">OK</a>
+      </div>
+    </div>
+  @endslot
+@end

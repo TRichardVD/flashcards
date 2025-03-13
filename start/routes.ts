@@ -16,6 +16,7 @@ import { middleware } from './kernel.js'
 import { request } from 'http'
 import { loginUserValidator, registerUserValidator } from '#validators/user'
 import SecurityController from '#controllers/security_controller'
+import StudyController from '#controllers/study_controller'
 
 router.get('/login', [SecurityController, 'login']).as('login')
 
@@ -77,6 +78,12 @@ router
     router.get('/flashcards/:id/delete', [FlashcardsController, 'delete']).as('flashcards.delete')
 
     router.delete('/flashcards/:id/', [FlashcardsController, 'destroy']).as('flashcards.destroy')
+
+    // Nouveau flux d'étude chronométrée
+    router.get('/study/:deckId', [StudyController, 'start']).as('study.start')
+    router.post('/study/:deckId/play', [StudyController, 'play']).as('study.play')
+    router.post('/study/:deckId/answer', [StudyController, 'recordAnswer']).as('study.answer')
+    router.post('/study/:deckId/finish', [StudyController, 'finish']).as('study.finish')
 
     // TODO : Page de gestion des decks et des cartes
 

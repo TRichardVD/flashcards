@@ -1,0 +1,169 @@
+@layout.main({ title: 'Révision en cours' })
+  @slot('main')
+    <div class="deck-header">
+      <h2>
+        Révision: {{ deck.name }}
+      </h2>
+      <div
+        id="timer"
+        class="card-count"
+        style="font-size: 1.1rem; margin: 1rem auto; display: inline-block;"
+      >
+        Temps: 0m 0s
+      </div>
+    </div>
+
+    <div class="flashcard-container">
+      @each((card, index) in flashcards)
+        <div
+          class="flip-container"
+          id="flashcard-{{ index }}"
+          style="display: {{ index === 0 ? 'block' : 'none' }}"
+          data-flipped="false"
+        >
+          <div class="flipper">
+            <div class="front">
+              <h2>
+                Recto
+              </h2>
+              <div class="flashcard-content-container">
+                <p class="flashcard-content">
+                  {{ card.recto }}
+                </p>
+              </div>
+              <p class="hint">
+                (Cliquez pour voir la réponse)
+              </p>
+            </div>
+            <div class="back">
+              <h2>
+                Verso
+              </h2>
+              <div class="flashcard-content-container">
+                <p class="flashcard-content">
+                  {{ card.verso }}
+                </p>
+              </div>
+              <p class="hint">
+                (Évaluez votre réponse)
+              </p>
+
+              <div class="answer-evaluation">
+                <button type="button" class="incorrect-btn button danger" onclick="evaluateAnswer(false, {{ index }})">Incorrect</button>
+                <button type="button" class="correct-btn button success" onclick="evaluateAnswer(true, {{ index }})">Correct</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      @endeach
+      
+      <div style="margin-top: 1rem; text-align: center;">
+        <span id="progress">Carte 1 sur {{ flashcards.length }}</span>
+      </div>
+    </div>
+
+    <script>
+      // Timer and variable declarations
+      const startTime = {{ JSON.stringify(startTime) }};
+      
+      const timerEl = document.getElementById("timer");
+      
+      const totalCards = {{ flashcards.length }};
+      
+      let currentCard = 0;
+      // Track the score
+      
+      const score = {
+        correct: 0,
+        total: totalCards
+      };
+      // Update timer every second
+      
+      setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1e3);
+        const minutes = Math.floor(elapsed / 60);
+        const seconds = elapsed % 60;
+        timerEl.textContent = "Temps: " + minutes + "m " + seconds + "s";
+      }, 1e3);
+      // Card flip event
+      
+      document.querySelectorAll(".flip-container").forEach(card => {
+        card.addEventListener("click", function() {
+          if (card.getAttribute("data-flipped") === "false") {
+            this.classList.add("hover");
+            card.setAttribute("data-flipped", "true");
+          }
+        });
+      });
+      // Handle answer evaluation with error handling
+      
+      function evaluateAnswer(isCorrect, cardIndex) {
+        const isLastCard = cardIndex === totalCards - 1;
+        console.log(`Evaluating answer: correct=${isCorrect}, index=${cardIndex}, isLast=${isLastCard}`);
+        // Send the answer to the server with fetch API
+        fetch(`/study/{{ deck.id }}/answer`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          body: JSON.stringify({
+            isCorrect: isCorrect,
+            cardIndex: cardIndex,
+            isLastCard: isLastCard
+          })
+        }).then(response => {
+          if (!response.ok) {
+            throw new Error(`Server responded with status: ${response.status}`);
+          }
+          return response.json();
+        }).then(data => {
+          console.log("Response data:", data);
+          if (isLastCard) {
+            // Submit the form to go to the finish page
+            document.getElementById("finish-form").submit();
+          } else {
+            // Move to next card
+            nextCard();
+          }
+        }).catch(error => {
+          console.error("Error recording answer:", error);
+          // Still proceed to next card even if there's an error
+          if (isLastCard) {
+            document.getElementById("finish-form").submit();
+          } else {
+            nextCard();
+          }
+        });
+      }
+      // Make sure buttons don't trigger card flip
+      
+      document.querySelectorAll(".answer-evaluation button").forEach(button => {
+        button.addEventListener("click", function(event) {
+          event.stopPropagation();
+        });
+      });
+      
+      function nextCard() {
+        document.getElementById(`flashcard-${currentCard}`).style.display = "none";
+        document.getElementById(`flashcard-${currentCard}`).classList.remove("hover");
+        document.getElementById(`flashcard-${currentCard}`).setAttribute("data-flipped", "false");
+        currentCard++;
+        document.getElementById(`flashcard-${currentCard}`).style.display = "block";
+        updateProgress();
+      }
+      
+      function updateProgress() {
+        document.getElementById("progress").textContent = `Carte ${currentCard + 1} sur ${totalCards}`;
+      }
+    </script>
+
+    <form
+      id="finish-form"
+      action="{{ route('study.finish', { deckId: deck.id }) }}"
+      method="POST"
+      style="display: none"
+    >
+    </form>
+  @endslot
+@end
