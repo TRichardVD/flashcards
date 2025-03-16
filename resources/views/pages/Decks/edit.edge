@@ -4,6 +4,7 @@
       Edit Deck
     </h2>
     <form action="/decks/{{ deck.id }}?_method=PUT" method="POST">
+      {{ csrfField() }}
       @!component('components/input', {
             label: 'Deck Name',
             name: 'name',

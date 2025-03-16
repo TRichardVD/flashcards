@@ -75,7 +75,7 @@ router
 
     router.delete('/flashcards/:id/', [FlashcardsController, 'destroy']).as('flashcards.destroy')
 
-    // Nouveau flux d'étude chronométrée
+    // flux d'étude chronométrée
     router.get('/study/:deckId', [StudyController, 'start']).as('study.start')
     router.post('/study/:deckId/play', [StudyController, 'play']).as('study.play')
     router.post('/study/:deckId/answer', [StudyController, 'recordAnswer']).as('study.answer')

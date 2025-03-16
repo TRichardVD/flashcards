@@ -118,9 +118,3 @@ Si vous avez exécuté les seeds, vous pouvez utiliser ces comptes :
 Avec **WOP : World Of Flashcards**, transformez l'apprentissage en une expérience interactive et engageante !
 
 ---
-
-## To do :
-
-- [ ] Etudier un deck
-- [ ] Mettre en publique un deck
-- [ ] Ajout csrf

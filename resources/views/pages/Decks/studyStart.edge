@@ -19,6 +19,7 @@
       </p>
 
       <form action="{{ route('study.play', { deckId: deck.id }) }}" method="POST">
+        {{ csrfField() }}
         <div style="text-align: center;">
           <button type="submit" class="button">C'est parti!</button>
           <a href="{{ route('decks.show', { id: deck.id }) }}" class="button secondary">Retour</a>

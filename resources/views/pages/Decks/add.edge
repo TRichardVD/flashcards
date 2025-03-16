@@ -9,6 +9,7 @@
 
     <form action="{{ route('decks.store') }}" method="POST" class="space-y-4">
       <div>
+        {{ csrfField() }}
         @!component('components/input', {
             label: 'Deck Name',
           name: 'name',

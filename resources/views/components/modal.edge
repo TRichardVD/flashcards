@@ -6,6 +6,7 @@
     </h2>
     <button class="button" onclick="closeModal()">Annuler</button>
     <form action="{{ url }}" method="{{ method }}">
+      {{ csrfField() }}
       <button type="submit">OK</button>
     </form>
   </div>
