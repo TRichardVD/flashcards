@@ -35,7 +35,7 @@
           </thead>
           <tbody>
             @each(deck in user.decks)
-              <tr onclick="window.location='/decks/{{ deck.id }}'" style="cursor: pointer;">
+              <tr class="clickable-row" onclick="window.location = '/decks/{{ deck.id }}'">
                 <td>
                   {{ deck.name }}
                 </td>
@@ -76,7 +76,7 @@
         </h2>
         <form id="deleteForm" method="POST" action="">
           <button type="submit" class="button">OK</button>
-          <button type="button" onclick="closeModal()" class="delete">Cancel</button>
+          <button type="button" onclick="closeModal()" class="delete">Annuler</button>
         </form>
       </div>
     </div>
