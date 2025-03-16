@@ -4,14 +4,6 @@ import Deck from '#models/deck'
 import { FlashcardValidator } from '#validators/flashcard'
 
 export default class FlashcardsController {
-  public async index({ response }: HttpContext) {
-    try {
-      const flashcards = await Flashcard.query().orderBy('id', 'asc')
-      return response.send(flashcards)
-    } catch (err) {
-      return response.send('Erreur')
-    }
-  }
   public async show({ response, params, view, session, auth }: HttpContext) {
     const card = await Flashcard.findByOrFail('id', params.id)
     if (!card) {

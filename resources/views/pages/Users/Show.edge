@@ -49,7 +49,10 @@
                         Edit
                       </button>
                     </form>
-                    <button class="button danger" onclick="openModal('{{ deck.id }}', event)">
+                    <button
+                      class="button danger"
+                      onclick="openConfirmModal('Etes-vous sûr de vouloir supprimer ce deck?', '/decks/{{ deck.id }}?_method=DELETE', 'POST', event)"
+                    >
                       Delete
                     </button>
                   </div>
@@ -68,24 +71,21 @@
       </div>
     </div>
 
-    <!-- Modal de confirmation -->
-    <div class="modal" style="display:none;">
-      <div class="modal-content">
-        <h2>
-          Etes-vous sûr de vouloir supprimer ce deck?
-        </h2>
-        <form id="deleteForm" method="POST" action="">
-          <button type="submit" class="button">OK</button>
-          <button type="button" onclick="closeModal()" class="delete">Annuler</button>
-        </form>
-      </div>
-    </div>
-
+    @modal({
+      question: '',
+      url: '',
+      method: 'POST'
+    })
+    @end
+    
     <script>
-      function openModal(deckId, event) {
+      function openConfirmModal(question, url, method, event) {
         event.stopPropagation();
-        document.getElementById("deleteForm").action = `/decks/${deckId}?_method=DELETE`;
-        document.querySelector(".modal").style.display = "block";
+        const modal = document.querySelector(".modal");
+        modal.querySelector("h2").textContent = question;
+        modal.querySelector("form").action = url;
+        modal.querySelector("form").method = method;
+        modal.style.display = "block";
       }
       
       function closeModal() {

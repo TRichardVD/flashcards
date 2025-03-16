@@ -43,8 +43,6 @@ router
     router.get('/logout', [SecurityController, 'logout']).as('logout')
 
     // Gestion Utilisateurs
-    router.get('/users', [UsersController, 'index']).as('users.index')
-
     router.get('/users/:id', [UsersController, 'show']).as('users.show')
 
     // Gestion Decks
@@ -62,8 +60,6 @@ router
     router.put('/decks/:id', [DecksController, 'update']).as('decks.update')
 
     // Gestion Flashcards
-
-    router.get('/flashcards', [FlashcardsController, 'index']).as('flashcards.index')
 
     router.get('/flashcards/:id', [FlashcardsController, 'show']).as('flashcards.show')
 
@@ -84,15 +80,11 @@ router
     router.post('/study/:deckId/play', [StudyController, 'play']).as('study.play')
     router.post('/study/:deckId/answer', [StudyController, 'recordAnswer']).as('study.answer')
     router.post('/study/:deckId/finish', [StudyController, 'finish']).as('study.finish')
-
-    // TODO : Page de gestion des decks et des cartes
-
-    // TODO : Page de jeu (avec les decks et les cartes)
   })
   .middleware(middleware.auth()) // Middleware d'authentification
 
-// TODO : Page 404 : Page non trouvée
+// Page 404 : Page non trouvée
 router.get('*', async (ctx: HttpContext) => {
   ctx.session.flash({ error: 'Page non trouvée' })
-  return ctx.response.redirect('/')
+  return ctx.response.redirect('/login')
 })

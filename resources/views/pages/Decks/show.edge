@@ -8,6 +8,14 @@
       <p class="deck-description">
         {{ deck.description || 'Aucune description' }}
       </p>
+
+      <div class="deck-actions">
+        <a href="/decks/{{ deck.id }}/edit" class="button">Modifier</a>
+        <button
+          class="danger"
+          onclick="openConfirmModal('Êtes-vous sûr de vouloir supprimer le deck','{{ route('decks.destroy', {id: deck.id}) }}?_method=DELETE','POST');"
+        >Supprimer</button>
+      </div>
     </div>
 
     <table>
@@ -44,7 +52,7 @@
                 <a href="/flashcards/{{ card.id }}/edit" class="edit" onclick="event.stopPropagation()">Modifier</a>
                 <button
                   class="delete"
-                  onclick="openModal('{{ route('flashcards.destroy', {id: card.id}) }}?_method=DELETE'); event.stopPropagation()"
+                  onclick="openConfirmModal('Êtes-vous sûr de vouloir supprimer cette flashcard ?', '{{ route('flashcards.destroy', {id: card.id}) }}?_method=DELETE', 'POST'); event.stopPropagation()"
                 >Supprimer</button>
               </div>
             </td>
@@ -86,23 +94,20 @@
       @endif
     </table>
 
-    <!-- Modal dynamique -->
-    <div class="modal" style="display:none;">
-      <div class="modal-content">
-        <h2>
-          Êtes-vous sûr de vouloir supprimer la flashcard ?
-        </h2>
-        <form id="deleteForm" method="POST" action="">
-          <button type="submit" class="button">OK</button>
-          <button type="button" onclick="closeModal()" class="delete">Annuler</button>
-        </form>
-      </div>
-    </div>
-
+    @modal({
+      question: '',
+      url: '',
+      method: 'POST'
+    })
+    @end
+    
     <script>
-      function openModal(actionUrl) {
-        document.getElementById("deleteForm").action = actionUrl;
-        document.querySelector(".modal").style.display = "block";
+      function openConfirmModal(question, url, method) {
+        const modal = document.querySelector(".modal");
+        modal.querySelector("h2").textContent = question;
+        modal.querySelector("form").action = url;
+        modal.querySelector("form").method = method;
+        modal.style.display = "block";
       }
       
       function closeModal() {

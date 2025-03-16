@@ -4,15 +4,6 @@ import { registerUserValidator } from '#validators/user'
 import Deck from '#models/deck'
 
 export default class UsersController {
-  async index({ response }: HttpContext) {
-    try {
-      const users = await User.query().orderBy('id', 'asc')
-      return response.send(users)
-    } catch (err) {
-      console.error('Erreur dans la récupération des utilisateurs', err)
-    }
-  }
-
   async show({ params, response, session, view }: HttpContext) {
     // Vérification du paramètre id
     if (!params.id || isNaN(params.id)) {

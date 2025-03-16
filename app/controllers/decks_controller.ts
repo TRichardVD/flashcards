@@ -56,22 +56,21 @@ export default class DecksController {
   }
 
   public async update({ params, request, auth, session, response }: HttpContext) {
+    const deck = await Deck.find(params.id)
+    if (!deck) {
+      session.flash('error', 'Deck introuvable')
+      return response.redirect().back()
+    }
+
+    if (deck?.user_fk !== auth.user?.id) {
+      session.flash('error', "Vous n'avez pas accès à ce deck")
+      return response.redirect().toRoute('users.show', { id: auth.user?.id })
+    }
+
+    const { name, description } = await request.validateUsing(
+      DeckValidator(deck?.id, deck?.user_fk)
+    )
     try {
-      const deck = await Deck.find(params.id)
-      if (!deck) {
-        session.flash('error', 'Deck introuvable')
-        return response.redirect().back()
-      }
-
-      if (deck?.user_fk !== auth.user?.id) {
-        session.flash('error', "Vous n'avez pas accès à ce deck")
-        return response.redirect().toRoute('users.show', { id: auth.user?.id })
-      }
-
-      const { name, description } = await request.validateUsing(
-        DeckValidator(deck?.id, deck?.user_fk)
-      )
-
       deck.name = name
       deck.description = description || ''
       await deck.save()
