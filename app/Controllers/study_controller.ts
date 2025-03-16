@@ -3,8 +3,12 @@ import Deck from '#models/deck'
 import Flashcard from '#models/flashcard'
 
 export default class StudyController {
-  public async start({ params, view, session, response }: HttpContext) {
+  public async start({ params, view, session, response, auth }: HttpContext) {
     const deck = await Deck.findOrFail(params.deckId)
+    if (deck.user_fk !== auth.user?.id) {
+      session.flash('error', "Vous n'avez pas accès à ce deck")
+      return response.redirect().toRoute('users.show', { id: auth.user?.id })
+    }
 
     // Check if the deck has any flashcards
     const flashcardsCount = await Flashcard.query().where('deck_fk', deck.id).count('* as total')
@@ -21,8 +25,13 @@ export default class StudyController {
     return view.render('pages/Decks/studyStart', { deck })
   }
 
-  public async play({ params, request, view, session, response }: HttpContext) {
+  public async play({ params, request, view, session, response, auth }: HttpContext) {
     const deck = await Deck.findOrFail(params.deckId)
+    if (deck.user_fk !== auth.user?.id) {
+      session.flash('error', "Vous n'avez pas accès à ce deck")
+      return response.redirect().toRoute('users.show', { id: auth.user?.id })
+    }
+
     const flashcards = await Flashcard.query().where('deck_fk', deck.id)
 
     // Check if there are any flashcards
@@ -51,7 +60,13 @@ export default class StudyController {
     })
   }
 
-  public async recordAnswer({ params, request, response, session }: HttpContext) {
+  public async recordAnswer({ params, request, response, session, auth }: HttpContext) {
+    const deck = await Deck.findOrFail(params.deckId)
+    if (deck.user_fk !== auth.user?.id) {
+      session.flash('error', "Vous n'avez pas accès à ce deck")
+      return response.status(403).json({ success: false })
+    }
+
     try {
       const { isCorrect, cardIndex, isLastCard } = request.body()
 
@@ -84,6 +99,12 @@ export default class StudyController {
   }
 
   public async finish({ params, request, response, view, session, auth }: HttpContext) {
+    const deck = await Deck.findOrFail(params.deckId)
+    if (deck.user_fk !== auth.user?.id) {
+      session.flash('error', "Vous n'avez pas accès à ce deck")
+      return response.redirect().toRoute('users.show', { id: auth.user?.id })
+    }
+
     try {
       const startTime = session.get('study_start_time')
       const endTime = Date.now()
