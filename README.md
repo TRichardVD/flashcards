@@ -10,6 +10,14 @@ Le projet respecte les exigences définies dans le cahier des charges fourni, en
 
 - [Fonctionnalités](#fonctionnalités)
 - [Technologies utilisées](#technologies-utilisées)
+<!-- - La description du contexte technique de développement
+- Les opérations de mise en place de cet environnement
+- La description du contexte technique de validation (staging)
+- Les opérations de mise en place de cet environnement
+- Les opérations de mise à jour de cet environnement (lorsque le développement a produit un artefact)
+- La description du contexte technique de production
+- Les opérations de mise en place de cet environnement
+- Les opérations de mise à jour de cet environnement (lorsqu’un artefact a été validé) -->
 
 ---
 
@@ -21,8 +29,6 @@ L'application inclut les fonctionnalités suivantes, conformément au cahier des
 - **Création de decks** : Les utilisateurs peuvent créer des paquets de flashcards organisés par thème (vocabulaire, mathématiques, histoire, etc.).
 - **Ajout et modification de flashcards** : Chaque carte contient une question et une réponse, permettant un apprentissage interactif.
 - **Mode révision** : Consultation des cartes avec possibilité de vérifier les réponses pour s'entraîner efficacement.
-- **Système de gamification** : Les utilisateurs accumulent des points d'expérience (PX) en accomplissant des missions, avec un objectif minimal fixé au niveau 12.
-- **Statistiques d'apprentissage** : Suivi des performances pour identifier les progrès réalisés.
 
 ## Technologies utilisées
 
