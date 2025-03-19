@@ -1,6 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { loginUserValidator } from '#validators/user'
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from '#models/user'
 
 export default class SecurityController {
@@ -8,7 +7,7 @@ export default class SecurityController {
     return view.render('pages/login/login')
   }
 
-  async createSession({ request, response, auth, session }: HttpContextContract) {
+  async createSession({ request, response, auth, session }: HttpContext) {
     const { email, password } = await request.validateUsing(loginUserValidator)
     console.log('email', email)
     console.log('password', password)

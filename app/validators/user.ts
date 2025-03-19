@@ -1,5 +1,4 @@
 import vine from '@vinejs/vine'
-import { table } from 'console'
 
 /**
  * Validator for user registration

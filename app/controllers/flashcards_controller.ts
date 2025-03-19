@@ -4,7 +4,7 @@ import Deck from '#models/deck'
 import { FlashcardValidator } from '#validators/flashcard'
 
 export default class FlashcardsController {
-  public async show({ response, params, view, session, auth }: HttpContext) {
+  public async show({ params, view, session, auth }: HttpContext) {
     const card = await Flashcard.findByOrFail('id', params.id)
     if (!card) {
       return session.flash('error', 'Flashcard introuvable')

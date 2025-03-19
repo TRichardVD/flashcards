@@ -25,7 +25,7 @@ export default class StudyController {
     return view.render('pages/Decks/studyStart', { deck })
   }
 
-  public async play({ params, request, view, session, response, auth }: HttpContext) {
+  public async play({ params, view, session, response, auth }: HttpContext) {
     const deck = await Deck.findOrFail(params.deckId)
     if (deck.user_fk !== auth.user?.id) {
       session.flash('error', "Vous n'avez pas accès à ce deck")
@@ -98,7 +98,7 @@ export default class StudyController {
     }
   }
 
-  public async finish({ params, request, response, view, session, auth }: HttpContext) {
+  public async finish({ params, response, view, session, auth }: HttpContext) {
     const deck = await Deck.findOrFail(params.deckId)
     if (deck.user_fk !== auth.user?.id) {
       session.flash('error', "Vous n'avez pas accès à ce deck")
