@@ -1,4 +1,3 @@
-/* app.css */
 /* Variables pour les couleurs */
 :root {
   --primary: #4caf50; /* Vert */
@@ -531,7 +530,7 @@ footer a {
   margin: 0 auto;
 }
 
-/* Login/Register form */
+/* login/Register form */
 .auth-form {
   max-width: 400px;
   margin: 2rem auto;

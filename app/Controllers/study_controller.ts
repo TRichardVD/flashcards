@@ -22,7 +22,7 @@ export default class StudyController {
       return response.redirect().toRoute('decks.show', { id: deck.id })
     }
 
-    return view.render('pages/Decks/studyStart', { deck })
+    return view.render('pages/decks/studyStart', { deck })
   }
 
   public async play({ params, view, session, response, auth }: HttpContext) {
@@ -52,7 +52,7 @@ export default class StudyController {
     session.put('study_flashcards_total', flashcards.length)
     session.put('study_flashcards_correct', 0)
 
-    return view.render('pages/Decks/studyPlay', {
+    return view.render('pages/decks/studyPlay', {
       deck,
       flashcards,
       startTime,
@@ -143,7 +143,7 @@ export default class StudyController {
       session.forget('study_flashcards_total')
       session.forget('study_flashcards_correct')
 
-      return view.render('pages/Decks/studyEnd', {
+      return view.render('pages/decks/studyEnd', {
         minutes,
         seconds,
         totalTime,

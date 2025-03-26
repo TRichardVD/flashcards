@@ -1,7 +1,7 @@
 @eval(await auth.check())
 <header>
   <a href="/">
-    <img class="logo" src="/resources/assets/logo.svg" alt="Logo" />
+    <img class="logo" src="{{ asset('resources/images/logo.svg') }}" alt="Logo" />
   </a>
   <nav>
     @if(auth.isAuthenticated)

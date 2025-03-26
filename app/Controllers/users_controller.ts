@@ -24,7 +24,7 @@ export default class UsersController {
     const data = { ...user, decks }
     console.log('data', data)
 
-    return view.render('pages/Users/show', {
+    return view.render('pages/users/show', {
       user: { ...data },
     })
   }

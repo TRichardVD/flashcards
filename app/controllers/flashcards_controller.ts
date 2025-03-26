@@ -13,7 +13,7 @@ export default class FlashcardsController {
       return session.flash('error', "Vous n'avez pas accès à ce deck")
     }
 
-    return view.render('pages/Flashcards/show', { flashcard: card })
+    return view.render('pages/flashcards/show', { flashcard: card })
   }
 
   public async store({ response, request, params, session, auth }: HttpContext) {
@@ -43,7 +43,7 @@ export default class FlashcardsController {
       return ctx.response.send("Vous n'avez pas accès à ce deck")
     }
 
-    return ctx.view.render('pages/Flashcards/add', { deck: deck })
+    return ctx.view.render('pages/flashcards/add', { deck: deck })
   }
 
   public async edit({ view, params, session }: HttpContext) {
@@ -53,7 +53,7 @@ export default class FlashcardsController {
       return session.flash('error', 'Flashcard ou Deck introuvable')
     }
 
-    return view.render('pages/Flashcards/edit', { flashcard: card, deck: deck })
+    return view.render('pages/flashcards/edit', { flashcard: card, deck: deck })
   }
 
   public async update({ params, request, response, session, auth }: HttpContext) {
@@ -109,7 +109,7 @@ export default class FlashcardsController {
       if (!card) {
         return session.flash('error', 'Flashcard introuvable')
       }
-      return view.render('pages/Flashcards/delete', { flashcard: card })
+      return view.render('pages/flashcards/delete', { flashcard: card })
     } catch (err) {
       session.flash('error', 'Flashcard introuvable')
       return response.redirect().back()

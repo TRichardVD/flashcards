@@ -22,7 +22,7 @@ export default class DecksController {
         return response.redirect().toRoute('users.show', { id: auth.user?.id })
       }
 
-      return view.render('pages/Decks/show', { flashcards: flashcards, deck: deck })
+      return view.render('pages/decks/show', { flashcards: flashcards, deck: deck })
     } catch (err) {
       console.log(err)
       return response.send('Erreur lors de la récupération du deck')
@@ -30,7 +30,7 @@ export default class DecksController {
   }
 
   public async create({ view }: HttpContext) {
-    return view.render('pages/Decks/add')
+    return view.render('pages/decks/add')
   }
 
   public async store({ request, response, session, auth }: HttpContext) {
@@ -54,7 +54,7 @@ export default class DecksController {
 
   public async edit({ view, params }: HttpContext) {
     const deck = await Deck.find(Number(params.id))
-    return view.render('pages/Decks/edit', { deck: deck })
+    return view.render('pages/decks/edit', { deck: deck })
   }
 
   public async update({ params, request, auth, session, response }: HttpContext) {
