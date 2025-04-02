@@ -593,6 +593,7 @@ footer a {
 .front,
 .back {
   backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
   position: absolute;
   top: 0;
   left: 0;
@@ -604,6 +605,7 @@ footer a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* Centrer le contenu */
   overflow: hidden; /* Empêche le débordement du contenu */
 }
 
@@ -611,6 +613,7 @@ footer a {
   z-index: 2;
   background-color: white;
   border-left: 4px solid var(--primary);
+  transform: rotateY(0deg);
 }
 
 .back {
