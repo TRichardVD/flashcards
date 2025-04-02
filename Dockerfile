@@ -21,16 +21,8 @@ RUN ["node","ace","build"]
 
 # Production stage
 FROM base
-ENV NODE_ENV=production
-ENV PORT=3333
-ENV HOST=0.0.0.0
 ENV LOG_LEVEL=info
 ENV SESSION_DRIVER=cookie
-ENV DB_HOST=127.0.0.1
-ENV DB_PORT=3306
-ENV DB_USER=root
-ENV DB_PASSWORD=root
-ENV DB_DATABASE=app
 WORKDIR /app
 COPY --from=production-deps /app/node_modules /app/node_modules
 COPY --from=build /app/build /app
