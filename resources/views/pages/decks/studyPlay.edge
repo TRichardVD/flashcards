@@ -110,7 +110,8 @@
           body: JSON.stringify({
             isCorrect: isCorrect,
             cardIndex: cardIndex,
-            isLastCard: isLastCard
+            isLastCard: isLastCard,
+            _csrf: "{{ csrfToken }}"
           })
         }).then(response => {
           if (!response.ok) {

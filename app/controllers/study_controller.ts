@@ -69,7 +69,9 @@ export default class StudyController {
 
     try {
       const { isCorrect, cardIndex, isLastCard } = request.body()
-
+      if (isCorrect === null || cardIndex === null || isLastCard === null) {
+        return response.redirect().toRoute('home')
+      }
       console.log(
         `Recording answer: correct=${isCorrect}, index=${cardIndex}, isLast=${isLastCard}`
       )
@@ -112,6 +114,18 @@ export default class StudyController {
       const minutes = Math.floor(totalTime / 60)
       const seconds = totalTime % 60
 
+      if (!totalTime) {
+        console.error(
+          'Une erreur avec la finalisation de la révision : TotalTime est null',
+          totalTime,
+          startTime
+        )
+        session.flash(
+          'error',
+          "Une erreur est survenue lors de la finalisation de votre session d'étude"
+        )
+        return response.redirect().toRoute('home')
+      }
       // Get the score
       const totalCards = session.get('study_flashcards_total', 0)
       const correctCards = session.get('study_flashcards_correct', 0)
