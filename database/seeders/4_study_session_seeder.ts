@@ -1,6 +1,6 @@
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
 import StudySession from '#models/study_session'
-import { StudySessionFactory } from '#database/factories/study_session_factory'
+import { StudySessionFactory } from '#database/factories/4_study_session_factory'
 
 export default class extends BaseSeeder {
   public async run() {

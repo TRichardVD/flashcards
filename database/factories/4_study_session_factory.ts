@@ -1,4 +1,4 @@
-import Factory from '@ioc:Adonis/Lucid/Factory'
+import Factory from '@adonisjs/lucid/factories'
 import StudySession from '#models/study_session'
 
 export const StudySessionFactory = Factory.define(StudySession, ({ faker }) => {
