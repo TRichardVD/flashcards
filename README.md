@@ -10,14 +10,14 @@ Le projet respecte les exigences définies dans le cahier des charges fourni, en
 
 - [Fonctionnalités](#fonctionnalités)
 - [Technologies utilisées](#technologies-utilisées)
-<!-- - La description du contexte technique de développement
-- Les opérations de mise en place de cet environnement
+- La description du contexte technique de développement
+- Les opérations de mise en place de cet environnement de developpement
 - La description du contexte technique de validation (staging)
 - Les opérations de mise en place de cet environnement
 - Les opérations de mise à jour de cet environnement (lorsque le développement a produit un artefact)
 - La description du contexte technique de production
 - Les opérations de mise en place de cet environnement
-- Les opérations de mise à jour de cet environnement (lorsqu’un artefact a été validé) -->
+- Les opérations de mise à jour de cet environnement (lorsqu’un artefact a été validé)
 
 ---
 
