@@ -28,14 +28,14 @@ npm install pm2@latest
 ### Configuration de l'application (.env)
 
 > Pour les étapes suivantes il est nécessaire d'être en ligne de commande dans le dossier du clone du repository github.
-> Il est nécessaire de configurer les variables d'environnement (comme fait pour railway) nous allons donc commencer par copier le fichier `.env.example` dans le fichier `.env` avec la commande suivante.
+> Il est nécessaire de configurer les variables d'environnement, nous allons donc commencer par copier le fichier `.env.example` dans le fichier `.env` avec la commande suivante.
 
 ```bash
 cp .env.example .env
 ```
 
 Editez les variables d'environnement avec les bonnes valeurs.
-Vous pouvez utiliser l'éditeur de texte `vim` :
+Vous pouvez utiliser l'éditeur de texte `vim` sur linux :
 
 ```bash
 vm .env

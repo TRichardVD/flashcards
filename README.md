@@ -34,20 +34,21 @@ L'application inclut les fonctionnalités suivantes, conformément au cahier des
 
 Le projet repose sur les technologies suivantes :
 
-- **Framework principal** : AdonisJS (TypeScript-first).
-- **Base de données** : MySQL.
-- **Gestion des dépendances** : npm.
-- **Template Engine** : Edge.js pour le rendu des vues.
-- **Contrôle de version** : Git et GitHub.
+- **Framework principal** : [AdonisJS (TypeScript-first)](https://adonisjs.com/).
+- **Base de données** : [MySQL](https://www.mysql.com).
+- **Gestion des dépendances** : [npm](https://www.npmjs.com/).
+- **Template Engine** : [Edge.js](https://edgejs.dev) pour le rendu des vues.
+- **ORM (Object-Relational Mapping)** : [lucid](https://lucid.adonisjs.com/)
+- **Contrôle de version** : [Git](https://git-scm.com/) et [GitHub](https://github.com/).
 
 ### Prérequis
 
 Avant d'installer le projet, assurez-vous d'avoir les logiciels suivants installés :
 
-- Node.js (v20.0.0 ou supérieur, version testée : v20.11.0)
-- MySQL (v8.0 ou supérieur, version testée : 8.0.30)
-- Git (v2.0 ou supérieur)
-- npm (v10.0.0 ou supérieur, version testée : 10.2.4)
+- [Node.js](https://nodejs.org) (v20.0.0 ou supérieur, version testée : v20.11.0)
+- [MySQL](https://www.mysql.com) (v8.0 ou supérieur, version testée : 8.0.30)
+- [Git](https://git-scm.com/) (v2.0 ou supérieur)
+- [npm](https://www.npmjs.com/) (v10.0.0 ou supérieur, version testée : 10.2.4)
 
 ### Installation
 
@@ -117,7 +118,11 @@ Si vous avez exécuté les seeds, vous pouvez utiliser ces comptes :
 - Email : marie.dupont@example.com / Password : motDePasse1
 - Email : jean.jacques@example.com / Password : motDePasse2
 
-<!-- ## Utilisation -->
+## Documentation annexes
+
+- [Choix de l'hebergeur (docker)](./docs/comparaisonHebergeur.md)
+- [Documentation sur le déploiement avec docker](./docs/docker-doc.md)
+- [Documentation sur le déploiement avec pm2](./docs/pm2-doc.md)
 
 ---
 
