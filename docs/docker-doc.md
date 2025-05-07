@@ -48,14 +48,13 @@ Ce processus améliore l'efficacité, la sécurité et permet de tirer parti du 
 ### Les commandes utilisés
 
 - `FROM` : Précise à docker l'image de base à utilisé. L'ajout de `AS` permet de faire référence à l'image créer dans le reste du dockerfile.
-- `WORKDIR` : permet de spéifié le repertoire de travail dans le container donc c'est là ou les commandes seront éxecuté
-
-- `ADD` permer de copier un ou plusieurs fichiers/dossiers dans le container docker.
-- `RUN` permet d'éxecuter des commandes dans le container.
-- `COPY` c'est comme ADD sauf qu'il permet d'ajouter plus de paramètre ici nous l'utilisons car il permet de lui spécié avec l'option --from que l'on souhaite copier depuis le container avec l'alias `build` par exemple.
-- `ENV` permet de spécifié des variables d'environnement qui seront donc ajouter dans un fichier `.env` dans le container docker
-- `EXPOSE` permet de préciser un port à "exposer" qui sera donc utilisable à l'éxtérieur du container quand on le configurera lors de lacréation d'un container avec l'option --port (ou -p)
-- `CMD` est tout à la fin il défini la commande qui est éxecuté par défaut lors du lancement du container donc ici au lancement du contianer nous souhaiterons lancer notre application web et donc de lancer la commande `node ./bin/server.js`.
+- `WORKDIR` : permet de spécifier le répertoire de travail dans le container donc c'est là où les commandes seront exécutées
+- `ADD` permet de copier un ou plusieurs fichiers/dossiers dans le container docker.
+- `RUN` permet d'exécuter des commandes dans le container.
+- `COPY` c'est comme ADD sauf qu'il permet d'ajouter plus de paramètres. Ici nous l'utilisons car il permet de lui spécifier avec l'option --from que l'on souhaite copier depuis le container avec l'alias `build` par exemple.
+- `ENV` permet de spécifier des variables d'environnement qui seront donc ajoutées dans un fichier `.env` dans le container docker
+- `EXPOSE` permet de préciser un port à "exposer" qui sera donc utilisable à l'extérieur du container quand on le configurera lors de la création d'un container avec l'option --port (ou -p)
+- `CMD` est tout à la fin, il définit la commande qui est exécutée par défaut lors du lancement du container donc ici au lancement du container nous souhaiterons lancer notre application web et donc de lancer la commande `node ./bin/server.js`.
 
 ### Explication ligne par ligne de notre dockerfile
 
@@ -73,7 +72,7 @@ ADD package.json package-lock.json ./
 # On installe toutes les dépendances exactement comme dans le lockfile
 RUN ["npm","ci"]
 
-# On crée une autre étape, cette fois pour n’installer que les dépendances de production (--omit-dev -> ignore les dépendances de développements)
+# On crée une autre étape, cette fois pour n’installer que les dépendances de production (--omit-dev -> ignore les dépendances de développement)
 FROM base AS production-deps
 WORKDIR /app
 ADD package.json package-lock.json ./
@@ -132,7 +131,7 @@ docker container run -d --name "flashcards-wof" flashcards-app
 - `--name "flashcards-wof"` : Permet de donner un nom à notre conteneur pour l'éditer plus facilement par la suite.
 - `flashcards-app` : À partir de l'image avec le tag `flashcards-app` (ou `flashcards-app:latest`).
 
-## Déployement sur le web (avec l'aide de [Railway](https://railway.com/))
+## Déploiement sur le web (avec l'aide de [Railway](https://railway.com/))
 
 > Choix détaillé de l'hébergeur [ici](./comparaisonHebergeur.md)
 
@@ -140,20 +139,20 @@ Pour commencer il faut créer un projet sur Railway via l'interface (une fois co
 
 ![bouton permettant de créer un projet sur Railway](new-button-project-railway.png)
 
-Railway nous permet directement de déployer depuis un repo Github (ca tombe bien !) c'est donc ce que nous allons utilisé.
+Railway nous permet directement de déployer depuis un repo Github (ça tombe bien !) c'est donc ce que nous allons utiliser.
 
 ![bonton permettant de créer un projet pour déployer à partir d'un repo Github](deploy-github-repo-button-railway.png)
 
 Ensuite on peut selectionner le repo une fois connecté. Ici on choisi le repo du projet flashcards.
-Railway s'occupe à partir d'ici de comprendre que òu est le dockerfile, de créer l'image et le container mais il faut quand même en plus créer une base de données MySQL grâce au bouton "create" puis "Database" puis "Add MySQL".
+Railway s'occupe à partir d'ici de comprendre où est le dockerfile, de créer l'image et le container mais il faut quand même en plus créer une base de données MySQL grâce au bouton "create" puis "Database" puis "Add MySQL".
 
-Il suffit uniquement de configurer les variables d'environnement suivantes sur l'élement correspondant au repo Github en ajoutant votre valeur personelle de "APP_KEY".
+Il suffit uniquement de configurer les variables d'environnement suivantes sur l'élément correspondant au repo Github en ajoutant votre valeur personnelle de "APP_KEY".
 
 ![Capture d'écran des variables d'environnement nécessaire pour le container docker sur railway](env-repo-element-railway.png)
 
 > Si nécessaire complétez également les variables d'environnement de la base de données MySQL.
 
-Pensez également qu'il est nécessaire de créer les tables de la base de données. Il existe différentes méthodes. Il est possible de se connecter à la base de données via une instance que vous avez localement de l'application web et d'éxectuer donc localement la command esuivante permettant de créer la base de données :
+Pensez également qu'il est nécessaire de créer les tables de la base de données. Il existe différentes méthodes. Il est possible de se connecter à la base de données via une instance que vous avez localement de l'application web et d'exécuter donc localement la commande suivante permettant de créer la base de données :
 
 ```bash
 node ace migration:run
@@ -161,11 +160,11 @@ node ace migration:run
 
 Cette commande executera les migrations de la base de données afin de créer les tables utiles.
 
-## Déployement dans un environnement de test avec pm2
+## Déploiement dans un environnement de test avec pm2
 
 ## Prérequis
 
-- Accès SSH à un serveur de deployement linux
+- Accès SSH à un serveur de déploiement linux
 - Git installé
 
 ### C'est quoi PM2 ?
@@ -182,7 +181,7 @@ git clone
 
 ### Installation de pm2
 
-Depuis le dossier du clone de repo que nous venons de créé, éxecutez la commande suivante afin d'installer via `npm` `pm2` (la dernière version (`@latest`)) :
+Depuis le dossier du clone de repo que nous venons de créer, exécutez la commande suivante afin d'installer via `npm` `pm2` (la dernière version (`@latest`)) :
 
 ```bash
 npm install pm2@latest
@@ -190,23 +189,23 @@ npm install pm2@latest
 
 ### Configuration de l'application (.env)
 
-> Pour les étapes suivantes il est nécessaire d'être en ligne de commande dans le dossier du clone de repository github
+> Pour les étapes suivantes il est nécessaire d'être en ligne de commande dans le dossier du clone du repository github.
 > Il est nécessaire de configurer les variables d'environnement (comme fait pour railway) nous allons donc commencer par copier le fichier `.env.example` dans le fichier `.env` avec la commande suivante.
 
 ```bash
 cp .env.example .env
 ```
 
-Editer les variables d'environnement avec les bonnes valeurs.
+Editez les variables d'environnement avec les bonnes valeurs.
 Vous pouvez utiliser l'éditeur de texte `vim` :
 
 ```bash
 vm .env
 ```
 
-> Pour éditer le fichier appuillez sur la touche i dans l'éditeur vous passerez donc en mode insert et ensuite pour quitter et sauvegarder appuillez sur esacpe pour quitter le mode insert et Entrez `:wq` pour sauvegarder (**w**rite = écrire les modifications) et quitter (**q**uit)
+> Pour éditer le fichier appuyez sur la touche i dans l'éditeur vous passerez donc en mode insert et ensuite pour quitter et sauvegarder appuyez sur escape pour quitter le mode insert et Entrez `:wq` pour sauvegarder (**w**rite = écrire les modifications) et quitter (**q**uit)
 
-Si vous n'avez pas encore de `APP_KEY`, éxecutez la commande suivante qui créra automatiquement une clé :
+Si vous n'avez pas encore de `APP_KEY`, exécutez la commande suivante qui créra automatiquement une clé :
 
 ```bash
 node ace generate:key
@@ -214,19 +213,19 @@ node ace generate:key
 
 ### Création de l'application de production (build)
 
-Vous pouvez maintenant éxecutez les commandes suivantes pour générer la version de l'application de production :
+Vous pouvez maintenant exécuter les commandes suivantes pour générer la version de l'application de production :
 
 ```bash
 npm i
 ```
 
-> Permet d'installer les dépendances nécessaire à la création et l'éxecution de l'application
+> Permet d'installer les dépendances nécessaires à la création et l'exécution de l'application
 
 ```bash
 node ace migration:run
 ```
 
-> Execute les migrations permettant de créer les table de la base de données
+> Exécute les migrations permettant de créer les tables de la base de données
 
 ```bash
 cp ./.env ./build/.env
@@ -240,9 +239,9 @@ node ace build
 
 > Cette commande permet de créer l'application de build
 
-### Déployement de l'application
+### Déploiement de l'application
 
-Une fois que les commandes précédentes on été éxecuté, lancez la commande suivante permettant de lancer le serveur :
+Une fois que les commandes précédentes on été exécuté, lancez la commande suivante permettant de lancer le serveur :
 
 ```bash
 pm2 start ./build/bin/server.js
