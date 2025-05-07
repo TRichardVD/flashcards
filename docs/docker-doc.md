@@ -45,9 +45,9 @@ Dans notre cas :
 
 Ce processus améliore l'efficacité, la sécurité et permet de tirer parti du cache Docker pour éviter de refaire des étapes inutiles.
 
-### Les commandes utilisés
+### Les commandes utilisées
 
-- `FROM` : Précise à docker l'image de base à utilisé. L'ajout de `AS` permet de faire référence à l'image créer dans le reste du dockerfile.
+- `FROM` : Précise à docker l'image de base à utiliser. L'ajout de `AS` permet de faire référence à l'image créée dans le reste du dockerfile.
 - `WORKDIR` : permet de spécifier le répertoire de travail dans le container donc c'est là où les commandes seront exécutées
 - `ADD` permet de copier un ou plusieurs fichiers/dossiers dans le container docker.
 - `RUN` permet d'exécuter des commandes dans le container.
@@ -143,12 +143,12 @@ Railway nous permet directement de déployer depuis un repo Github (ça tombe bi
 
 ![bonton permettant de créer un projet pour déployer à partir d'un repo Github](deploy-github-repo-button-railway.png)
 
-Ensuite on peut selectionner le repo une fois connecté. Ici on choisi le repo du projet flashcards.
+Ensuite on peut sélectionner le repo une fois connecté. Ici on choisit le repo du projet flashcards.
 Railway s'occupe à partir d'ici de comprendre où est le dockerfile, de créer l'image et le container mais il faut quand même en plus créer une base de données MySQL grâce au bouton "create" puis "Database" puis "Add MySQL".
 
 Il suffit uniquement de configurer les variables d'environnement suivantes sur l'élément correspondant au repo Github en ajoutant votre valeur personnelle de "APP_KEY".
 
-![Capture d'écran des variables d'environnement nécessaire pour le container docker sur railway](env-repo-element-railway.png)
+![Capture d'écran des variables d'environnement nécessaires pour le container docker sur railway](env-repo-element-railway.png)
 
 > Si nécessaire complétez également les variables d'environnement de la base de données MySQL.
 
@@ -158,4 +158,52 @@ Pensez également qu'il est nécessaire de créer les tables de la base de donn�
 node ace migration:run
 ```
 
-Cette commande executera les migrations de la base de données afin de créer les tables utiles.
+Cette commande exécutera les migrations de la base de données afin de créer les tables utiles.
+
+## Exécuter tous les containers docker à l'aide d'un docker-compose
+
+### C'est quoi un `docker-compose.yml` ?
+
+Un fichier `docker-compose.yml` est un script de configuration YAML qui décrit comment lancer et orchestrer plusieurs conteneurs Docker avec leurs services, réseaux et volumes, en une seule commande.
+
+### Lancer le docker-compose
+
+Pour lancer Docker Compose, il faut exécuter la commande suivante :
+
+```bash
+docker-compose up
+```
+
+### Explication ligne par ligne de celui réalisé
+
+> Le fichier `docker-compose.yml` est disponible [ici](../docker-compose.yml)
+
+```yml
+# "services" liste les containers à créer
+services:
+  db: # Le premier container se nomme "db"
+    image: mysql # Le container "db" est issu de l'image "mysql" (provenant de docker hub)
+    ports: # Le container exposera son port "3306" sur le port "3306" de la machine hôte
+      - 3306:3306
+    environment: # Configuration des variables d'environnement du container
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD} # variable d'environnement correspondant au mot de passe de l'utilisateur root de la db. La valeur de la variable d'environnement est récupérée dans le .env dans le répertoire courant avec la syntaxe ${nom_variable_env}.
+      - MYSQL_DATABASE=${DB_DATABASE} # variable d'environnement correspondant à la base de données créée par défaut. La valeur de la variable d'environnement est récupérée dans le .env dans le répertoire courant avec la syntaxe ${nom_variable_env}.
+  web: # Création d'un container nommé "web"
+    build: . # Ce container est issu d'une image construite (build) à partir d'un `Dockerfile` dans le répertoire courant
+    ports: # Le container exposera son port "3333" sur le port "3333" de la machine hôte
+      - 3333:3333
+    environment:
+      - APP_KEY=${APP_KEY} # Clé secrète utilisée par AdonisJS. La valeur de la variable d'environnement est récupérée dans le .env dans le répertoire courant avec la syntaxe ${nom_variable_env}.
+      - DB_DATABASE=${DB_DATABASE} # Nom de la db utilisée. La valeur de la variable d'environnement est récupérée dans le .env dans le répertoire courant avec la syntaxe ${nom_variable_env}.
+      - DB_USER=root # Nom de l'utilisateur de la db utilisé
+      - DB_PASSWORD=${DB_PASSWORD} # mot de passe de l'utilisateur de la db utilisé (ici "root"). La valeur de la variable d'environnement est récupérée dans le .env dans le répertoire courant avec la syntaxe ${nom_variable_env}.
+      - DB_HOST=db # Le nom d'hôte de la base de données. Ici "db" fait automatiquement référence au nom d'hôte du container se nommant "db" créé dans le même docker-compose.yml
+      - DB_PORT=3306 # Port utilisé par la base de données
+      - HOST=0.0.0.0 # Nom d'hôte où node devra écouter pour récupérer les requêtes HTTP
+      - PORT=3333 # Port où node devra écouter pour récupérer les requêtes HTTP
+      - NODE_ENV=production # Mode d'exécution de l'application (ici : production (ça peut aussi être par exemple "debug"))
+    command: sh -c "sleep 30 && node ace migration:run --force && exec node ./bin/server.js" \
+    # Remplace la commande par défaut du Dockerfile :
+    # attend 30s (le temps que la base de données soit prête), exécute les migrations,
+    # puis lance le serveur. Le `sh -c` permet de chaîner les instructions dans un seul processus (et donc d'éviter que le container se ferme).
+```

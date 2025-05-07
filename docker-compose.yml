@@ -1,1 +1,23 @@
-# TODO : Rédiger le docker-compose et l'expliquer
+services:
+  db:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+  web:
+    build: .
+    ports:
+      - 3333:3333
+    environment:
+      - APP_KEY=${APP_KEY}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USER=root
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=db
+      - DB_PORT=3306
+      - HOST=0.0.0.0
+      - PORT=3333
+      - NODE_ENV=production
+    command: sh -c "sleep 30 && node ace migration:run --force && exec node ./bin/server.js"
