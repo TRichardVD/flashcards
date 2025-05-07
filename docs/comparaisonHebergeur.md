@@ -10,7 +10,6 @@
 
 - [Railway](https://railway.com)
 - [Render](https://render.com/)
-- Github
 
 ## Tableau de syntèse des vérifications
 
@@ -18,6 +17,5 @@
 | ------------- | :--------------------------------------: | :--------------------------------------: | :----------------------------------: |
 | Railway       |                   OUI                    |                   OUI                    |             MySQL, etc.              |
 | Render        |                   OUI                    |                   OUI                    |              PostgreSQL              |
-| Github        |                    ?                     |                    ?                     |                  ?                   |
 
 Je vais utilisé Railway respecte les contraintes et permet d'utiliser MySQL.
