@@ -160,6 +160,10 @@ node ace migration:run
 
 Cette commande exécutera les migrations de la base de données afin de créer les tables utiles.
 
+### Mise à jour de l'application déployée lors d'un incrément
+
+Lorsqu'une mise à jour est développée, l'avantage d'utiliser Railway est qu'il met automatiquement à jour l'application en fonction du repository. Ainsi, dès qu'une mise à jour est commitée et poussée, Railway détecte automatiquement les changements et déploie la nouvelle version. Il n'y a donc rien d'autre à faire que de _commit_ et _push_ les nouveautés.
+
 ## Exécuter tous les containers docker à l'aide d'un docker-compose
 
 ### C'est quoi un `docker-compose.yml` ?
