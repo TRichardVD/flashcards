@@ -106,7 +106,9 @@ CMD ["node", "./bin/server.js"]
 
 ```
 
-## Construire l'image
+> Le Dockerfile sera utilisé pour être dépoyer sur Railway comme expliqué [ici](./environnement-production.md)
+
+## Construire l'image à partir du Dockerfile
 
 Pour construire une image, nous utilisons la commande suivante :
 
@@ -130,39 +132,6 @@ docker container run -d --name "flashcards-wof" flashcards-app
 - `-d` : Précise qu'on veut faire tourner le conteneur en arrière-plan.
 - `--name "flashcards-wof"` : Permet de donner un nom à notre conteneur pour l'éditer plus facilement par la suite.
 - `flashcards-app` : À partir de l'image avec le tag `flashcards-app` (ou `flashcards-app:latest`).
-
-## Déploiement sur le web (avec l'aide de [Railway](https://railway.com/))
-
-> Choix détaillé de l'hébergeur [ici](./comparaisonHebergeur.md)
-
-Pour commencer il faut créer un projet sur Railway via l'interface (une fois connecté)
-
-![bouton permettant de créer un projet sur Railway](new-button-project-railway.png)
-
-Railway nous permet directement de déployer depuis un repo Github (ça tombe bien !) c'est donc ce que nous allons utiliser.
-
-![bonton permettant de créer un projet pour déployer à partir d'un repo Github](deploy-github-repo-button-railway.png)
-
-Ensuite on peut sélectionner le repo une fois connecté. Ici on choisit le repo du projet flashcards.
-Railway s'occupe à partir d'ici de comprendre où est le dockerfile, de créer l'image et le container mais il faut quand même en plus créer une base de données MySQL grâce au bouton "create" puis "Database" puis "Add MySQL".
-
-Il suffit uniquement de configurer les variables d'environnement suivantes sur l'élément correspondant au repo Github en ajoutant votre valeur personnelle de "APP_KEY".
-
-![Capture d'écran des variables d'environnement nécessaires pour le container docker sur railway](env-repo-element-railway.png)
-
-> Si nécessaire complétez également les variables d'environnement de la base de données MySQL.
-
-Pensez également qu'il est nécessaire de créer les tables de la base de données. Il existe différentes méthodes. Il est possible de se connecter à la base de données via une instance que vous avez localement de l'application web et d'exécuter donc localement la commande suivante permettant de créer la base de données :
-
-```bash
-node ace migration:run
-```
-
-Cette commande exécutera les migrations de la base de données afin de créer les tables utiles.
-
-### Mise à jour de l'application déployée lors d'un incrément
-
-Lorsqu'une mise à jour est développée, l'avantage d'utiliser Railway est qu'il met automatiquement à jour l'application en fonction du repository. Ainsi, dès qu'une mise à jour est commitée et poussée, Railway détecte automatiquement les changements et déploie la nouvelle version. Il n'y a donc rien d'autre à faire que de _commit_ et _push_ les nouveautés.
 
 ## Exécuter tous les containers docker à l'aide d'un docker-compose
 

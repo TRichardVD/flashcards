@@ -4,6 +4,7 @@
 
 - Accès SSH à un serveur de déploiement Linux
 - Git installé
+- Accès à une base de données MySQL
 
 ### C'est quoi PM2 ?
 
@@ -11,7 +12,7 @@ PM2 est un gestionnaire de processus Node.js qui permet de lancer, surveiller, r
 
 ### Clone du repo
 
-> Afin de déployer sur un serveur via pm2, il nécessite un accès via SSH.
+> Afin de déployer sur un serveur via pm2, il est nécessaire d'avoir un accès via SSH.
 
 ```bash
 git clone
@@ -92,6 +93,14 @@ Une fois que les commandes précédentes ont été exécutées, lancez la comman
 pm2 start ./build/bin/server.js
 ```
 
+### Stopper l'application
+
+Si vous souhaiter stopper l'application, il vous suffit de lancer la commande suivante:
+
+```bash
+pm2 stop ./build/bin/server.js
+```
+
 ### Mise à jour de l'application
 
 Lorsqu'une nouvelle version est déployée, procédez comme suit pour mettre à jour et relancer l'application :
@@ -110,7 +119,7 @@ Lorsqu'une nouvelle version est déployée, procédez comme suit pour mettre à 
    npm install
    ```
 
-   Pour mettre à jour pm2 (PAS NECESSAIRE SI VOUS AVEZ INSTALLÉ PM2 DE MANIÈRE "GLOBAL"):
+   Pour mettre à jour pm2 (**Pas nécessaire si vous avez installer pm2 de manière global**):
 
    ```bash
    npm install pm2@latest
@@ -131,17 +140,17 @@ Lorsqu'une nouvelle version est déployée, procédez comme suit pour mettre à 
 
 4. **Relancer l'application via pm2**
 
-   ```bash
-   pm2 start build/bin/server.js
-   ```
+```bash
+pm2 update build/bin/server.js
+```
 
 > Toutes les commandes sont réécrites ci-dessous afin de pouvoir être copiées/collées dans un script qui automatise cette opération. Grâce à cela, il suffira uniquement de lancer le script pour effectuer la mise à jour.
 
-### _(facultatif)_ Script `sh` utilitaire
+### _(facultatif)_ Script `sh` utilitaire de démarrage et de mise à jour du serveur
 
 ```sh
 # aller dans le répertoire clone de l'application
-cd ./app/flashcards
+cd ./app/flashcards # A CHANGER EN FONCTION DE L'EMPLACEMENT DU SCRIPT ET DU REPO LOCAL
 
 # Met à jour le repo local à partir du repo dans le cloud
 git fetch
@@ -153,8 +162,8 @@ npm i
 # Installe pm2 (dernière version)
 npm i pm2@latest # PAS NECESSAIRE SI VOUS AVEZ INSTALLÉ PM2 DE MANIÈRE "GLOBAL"
 
-# Exécute les migrations (création des tables de la db)
-node ace migration:run
+# Exécute les migrations (création des tables de la db) (--force permet d'éviter qu'il demande une confirmation)
+node ace migration:run --force
 
 # Créer la version de l'application de déploiement
 node ace build
@@ -163,6 +172,6 @@ node ace build
 cp ./.env ./build/.env
 
 # Exécute l'application (de production) via pm2
-pm2 start ./build/bin/server.js
+pm2 update ./build/bin/server.js
 
 ```
