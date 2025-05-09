@@ -1,6 +1,6 @@
-# WOP : World Of Flashcards
+# WOF : World Of Flashcards
 
-WOP est un projet développé avec **AdonisJS**, un framework backend en TypeScript pour Node.js. Cette application web de flashcards est destinée aux étudiants souhaitant apprendre de manière ludique des matières variées telles que le vocabulaire, les mathématiques ou l'histoire. Les flashcards sont une méthode pédagogique reconnue pour leur efficacité dans la mémorisation et l'apprentissage.
+WOF est un projet développé avec **AdonisJS**, un framework backend en TypeScript pour Node.js. Cette application web de flashcards est destinée aux étudiants souhaitant apprendre de manière ludique des matières variées telles que le vocabulaire, les mathématiques ou l'histoire. Les flashcards sont une méthode pédagogique reconnue pour leur efficacité dans la mémorisation et l'apprentissage.
 
 Le projet respecte les exigences définies dans le cahier des charges fourni, en mettant l'accent sur une application fonctionnelle et intuitive, tout en exploitant les principaux composants d'AdonisJS.
 
@@ -126,6 +126,6 @@ Si vous avez exécuté les seeds, vous pouvez utiliser ces comptes :
 
 ---
 
-Avec **WOP : World Of Flashcards**, transformez l'apprentissage en une expérience interactive et engageante !
+Avec **WOF : World Of Flashcards**, transformez l'apprentissage en une expérience interactive et engageante !
 
 ---
